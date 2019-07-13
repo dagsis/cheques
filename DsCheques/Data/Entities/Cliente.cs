@@ -7,14 +7,20 @@ using System.Threading.Tasks;
 
 namespace DsCheques.Data.Entities
 {
-    public class Compania
+    public class Cliente
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage ="Campo Requerido")]
-        [Display(Name="Razón Social")]
+        [Required(ErrorMessage = "Campo Requerido")]
+        [Display(Name = "Nombre")]
         [Column(TypeName = "varchar(50)")]
-
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Campo Requerido")]
+        [Display(Name = "Cuit")]
+        [Column(TypeName = "varchar(11)")]
+        public string Cuit { get; set; }
+        public User User { get; set; }
+
     }
 }

@@ -4,14 +4,16 @@ using DsCheques.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DsCheques.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190713204638_UserCheques")]
+    partial class UserCheques
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,29 +58,6 @@ namespace DsCheques.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cheques");
-                });
-
-            modelBuilder.Entity("DsCheques.Data.Entities.Cliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Cuit")
-                        .IsRequired()
-                        .HasColumnType("varchar(11)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("DsCheques.Data.Entities.User", b =>
@@ -247,13 +226,6 @@ namespace DsCheques.Migrations
                 });
 
             modelBuilder.Entity("DsCheques.Data.Entities.Cheque", b =>
-                {
-                    b.HasOne("DsCheques.Data.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("DsCheques.Data.Entities.Cliente", b =>
                 {
                     b.HasOne("DsCheques.Data.Entities.User", "User")
                         .WithMany()
