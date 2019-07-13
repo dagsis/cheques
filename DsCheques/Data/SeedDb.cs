@@ -1,4 +1,5 @@
 ﻿using DsCheques.Data.Entities;
+using DsCheques.Helpers;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -9,18 +10,19 @@ namespace DsCheques.Data
 {
     public class SeedDb
     {
-        private readonly DataContext context;
-        private readonly UserManager<User> userManager;
 
-        public SeedDb(DataContext context, UserManager<User>userManager)
+        private readonly DataContext context;
+        private readonly IUserHelper userHelper;
+
+        public SeedDb(DataContext context, IUserHelper userHelper)
         {
             this.context = context;
-            this.userManager = userManager;
+            this.userHelper = userHelper;
         }
 
         public async Task SeedAsync()
         {
-            var user = await this.userManager.FindByEmailAsync("dagsis@dagsis.com.ar");
+            var user = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
             if (user == null)
             {
                 user = new User
@@ -31,7 +33,7 @@ namespace DsCheques.Data
                     UserName = "dagsis@dagsis.com.ar"
                 };
 
-                var result = await this.userManager.CreateAsync(user, "123456");
+                var result = await this.userHelper.AddUserAsync (user, "123456");
                 if (result != IdentityResult.Success)
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DsCheques.Data.Entities
 {
-    public class Cheque
+    public class Cheque : IEntity
     {
         public int Id { get; set; }
 

@@ -8,6 +8,14 @@ namespace DsCheques.Data.Repositories.Clases
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
     {
+
+        private readonly DataContext context;
+
+        public GenericRepository(DataContext context)
+        {
+            this.context = context;
+        }
+
         public Task<T> CreateAsync(T entity)
         {
             throw new NotImplementedException();

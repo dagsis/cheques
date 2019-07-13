@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DsCheques.Data;
 using DsCheques.Data.Entities;
+using DsCheques.Data.Repositories.Clases;
+using DsCheques.Data.Repositories.Interfaces;
+using DsCheques.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -57,6 +60,13 @@ namespace DsCheques
 
             services.AddTransient<SeedDb>();
 
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IChequeRepository, ChequeRepository>();
+
+
+            services.AddScoped<IUserHelper, UserHelper>();
+
+
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -87,6 +97,7 @@ namespace DsCheques
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
