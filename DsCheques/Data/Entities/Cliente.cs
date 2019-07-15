@@ -12,7 +12,7 @@ namespace DsCheques.Data.Entities
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Cliente")]
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
 

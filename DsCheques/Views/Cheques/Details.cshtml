@@ -1,0 +1,83 @@
+﻿@model DsCheques.Data.Entities.Cheque
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Cheque</h4>
+    <hr />  
+</div>
+
+<div class="row">
+    <dl class="dl-horizontal">
+        <div class="col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaIngreso)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FechaIngreso)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FechaDeposito)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FechaDeposito)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Firmante)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Firmante)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cliente.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cliente.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Destino)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Destino)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Numero)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Numero)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Cuenta)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Cuenta)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Importe)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Importe)
+            </dd>
+        </div>
+        <div class="col-md-6">
+            <dt>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </dt>
+            <dd>
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:200px;height:300px;max-width: 100%; height: auto;" />
+                }
+            </dd>
+        </div>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+    <a asp-action="Index" class="btn btn-success">Regresar a la lista</a>
+</div>

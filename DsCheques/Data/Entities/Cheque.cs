@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,9 +12,15 @@ namespace DsCheques.Data.Entities
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Campo Requerido")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name ="Fecha de Ingreso")]
         [Column(TypeName = "smalldatetime")]
-        public DateTime? FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
+        [Required(ErrorMessage = "Campo Requerido")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Fecha de Deposito")]
         [Column(TypeName = "smalldatetime")]
         public DateTime? FechaDeposito { get; set; }
 
@@ -22,8 +29,11 @@ namespace DsCheques.Data.Entities
         [Column(TypeName = "varchar(50)")]
         public string Firmante { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        public int IdCliente { get; set; }
+        //[Required(ErrorMessage = "Campo Requerido")]
+
+        //[Display(Name = "Cliente")]
+        //[Range(1, int.MaxValue, ErrorMessage = "Seleccione un Cliente.")]
+        public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "Campo Requerido")]
         [Display(Name = "Destino")]
@@ -39,6 +49,8 @@ namespace DsCheques.Data.Entities
         public string ImageUrl { get; set; }
 
         public User User { get; set; }
+
+        public Cliente Cliente { get; set; }
 
     }
 }

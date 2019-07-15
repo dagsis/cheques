@@ -8,24 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using DsCheques.Data;
 using DsCheques.Data.Entities;
 using DsCheques.Helpers;
+using DsCheques.Data.Repositories.Interfaces;
 
 namespace DsCheques.Controllers
 {
     public class ClientesController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IClienteRepository clienteRepository;
         private readonly IUserHelper userHelper;
 
-        public ClientesController(DataContext context, IUserHelper userHelper)
+        public ClientesController(IClienteRepository clienteRepository, IUserHelper userHelper)
         {
-            _context = context;
+            this.clienteRepository = clienteRepository;
             this.userHelper = userHelper;
         }
 
         // GET: Clientes
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Clientes.ToListAsync());
+            return View(this.clienteRepository.GetAll());
         }
 
         // GET: Clientes/Details/5
@@ -36,8 +37,7 @@ namespace DsCheques.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -62,8 +62,8 @@ namespace DsCheques.Controllers
             //TODO: agregar usuario al cliente y tambien en el edit
             if (ModelState.IsValid)
             {
-                _context.Add(cliente);
-                await _context.SaveChangesAsync();
+                cliente.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+                await this.clienteRepository.CreateAsync(cliente);
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);
@@ -77,7 +77,7 @@ namespace DsCheques.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
+            var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -101,12 +101,12 @@ namespace DsCheques.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
+                    cliente.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+                    await this.clienteRepository.UpdateAsync(cliente);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.Id))
+                    if (!await this.clienteRepository.ExistAsync(cliente.Id))
                     {
                         return NotFound();
                     }
@@ -128,8 +128,7 @@ namespace DsCheques.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
                 return NotFound();
@@ -143,15 +142,10 @@ namespace DsCheques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            _context.Clientes.Remove(cliente);
-            await _context.SaveChangesAsync();
+             var cliente = await this.clienteRepository.GetByIdAsync(id);
+            await this.clienteRepository.DeleteAsync(cliente);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClienteExists(int id)
-        {
-            return _context.Clientes.Any(e => e.Id == id);
-        }
     }
 }

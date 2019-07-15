@@ -1,4 +1,5 @@
 ﻿using DsCheques.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,34 +17,47 @@ namespace DsCheques.Data.Repositories.Clases
             this.context = context;
         }
 
-        public Task<T> CreateAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task DeleteAsync(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> ExistAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IQueryable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return this.context.Set<T>().AsNoTracking();
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await this.context.Set<T>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public Task<T> UpdateAsync(T entity)
+        public async Task<T> CreateAsync(T entity)
         {
-            throw new NotImplementedException();
+            await this.context.Set<T>().AddAsync(entity);
+            await SaveAllAsync();
+            return entity;
+        }
+
+        public async Task<T> UpdateAsync(T entity)
+        {
+            this.context.Set<T>().Update(entity);
+            await SaveAllAsync();
+            return entity;
+        }
+
+        public async Task DeleteAsync(T entity)
+        {
+            this.context.Set<T>().Remove(entity);
+            await SaveAllAsync();
+        }
+
+        public async Task<bool> ExistAsync(int id)
+        {
+            return await this.context.Set<T>().AnyAsync(e => e.Id == id);
+
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await this.context.SaveChangesAsync() > 0;
         }
     }
 }

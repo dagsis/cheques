@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DsCheques.Data.Entities.Cheque>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Lista de Cheques</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i> Nuevo Cheque</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaIngreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDeposito)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Firmante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destino)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Numero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Importe)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaIngreso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeposito)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Firmante)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Numero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Importe)
+            </td>
+            <td>
+                <a asp-action="Edit" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-pencil"></i> </a>
+                <a asp-action="Details" class="btn btn-default" asp-route-id="@item.Id"><i class="glyphicon glyphicon-list"> </i> </a>
+                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="glyphicon glyphicon-trash"></i> </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

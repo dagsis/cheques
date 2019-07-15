@@ -11,6 +11,7 @@ namespace DsCheques.Data.Repositories.Clases
     {
         public ClienteRepository(DataContext context) : base(context)
         {
+
         }
     }
 }
