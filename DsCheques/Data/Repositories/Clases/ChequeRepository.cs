@@ -17,6 +17,11 @@ namespace DsCheques.Data.Repositories.Clases
             this.context = context;
         }
 
+        public IQueryable GetAllChequesByOrder()
+        {
+            return this.context.Cheques.Include(c => c.Cliente).Include(u => u.User).AsNoTracking();
+        }
+
         public Cheque GetChequesWihClientes(int id)
         {
             return  this.context.Cheques

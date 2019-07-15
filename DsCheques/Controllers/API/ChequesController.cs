@@ -22,7 +22,7 @@ namespace DsCheques.Controllers.API
         [HttpGet]
         public IActionResult GetCheques()
         {
-            return Ok(this.chequesRepository.GetAll());
+            return Ok(this.chequesRepository.GetAllChequesByOrder());
         }
 
     }

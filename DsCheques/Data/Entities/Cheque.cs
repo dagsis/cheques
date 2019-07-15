@@ -52,5 +52,17 @@ namespace DsCheques.Data.Entities
 
         public Cliente Cliente { get; set; }
 
+        public string ImageFullPath {
+            get
+            {
+                if(string.IsNullOrEmpty(this.ImageUrl))
+                {
+                    return null;
+                }
+
+                return $"http://www.dscheques.ferozo.net{this.ImageUrl.Substring(1)}";
+            }
+        }
+
     }
 }

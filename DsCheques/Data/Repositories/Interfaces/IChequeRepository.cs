@@ -13,5 +13,7 @@ namespace DsCheques.Data.Repositories.Interfaces
         IEnumerable<SelectListItem> GetComboClientes();
 
         Cheque GetChequesWihClientes(int id);
+
+        IQueryable GetAllChequesByOrder();
     }
 }
