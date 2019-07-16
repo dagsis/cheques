@@ -1,4 +1,5 @@
-﻿using DsCheques.UIForm.Views;
+﻿using DsCheques.UIForm.ViewModels;
+using DsCheques.UIForm.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,7 @@ namespace DsCheques.UIForm
         {
             InitializeComponent();
 
+            MainViewModel.GetInstance().Login = new LoginViewModel();
             this.MainPage = new NavigationPage(new LoginPage());
 
         }

@@ -5,6 +5,7 @@ using System.Text;
 namespace DsCheques.UIForm.ViewModels
 {
     using System.Windows.Input;
+    using DsCheques.UIForm.Views;
     using GalaSoft.MvvmLight.Command;
     using Xamarin.Forms;
 
@@ -15,6 +16,12 @@ namespace DsCheques.UIForm.ViewModels
         public string Password { get; set; }
 
         public ICommand LoginCommand => new RelayCommand(this.Login);
+
+        public LoginViewModel()
+        {
+            Email = "dagsis@dagsis.com.ar";
+            Password = "123456";
+        }
 
         private async void Login()
         {
@@ -36,7 +43,8 @@ namespace DsCheques.UIForm.ViewModels
                 return;
             }
 
-            await Application.Current.MainPage.DisplayAlert("Ok", "Fuck yeah!!!", "Accept");
+            MainViewModel.GetInstance().Cheques = new ChequesViewModel();
+            await Application.Current.MainPage.Navigation.PushAsync(new ChequesPage());
         }
     }
 
