@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DsCheques.UIForm.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,8 @@ namespace DsCheques.UIForm
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            this.MainPage = new NavigationPage(new LoginPage());
+
         }
 
         protected override void OnStart()

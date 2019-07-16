@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsCheques", "DsCheques.csproj", "{FDD18AC0-AE5D-43DB-AAFF-9C9261C62E58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsCheques", "DsCheques.csproj", "{FDD18AC0-AE5D-43DB-AAFF-9C9261C62E58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsCheques.Common", "..\DsCheques.Common\DsCheques.Common.csproj", "{BDB1B60A-8583-4302-8670-D082A6EEA583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsCheques.Common", "..\DsCheques.Common\DsCheques.Common.csproj", "{BDB1B60A-8583-4302-8670-D082A6EEA583}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobiles", "Mobiles", "{CB61B1BB-1350-45C1-9F48-C696DC0A1A00}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsCheques.UIForm.Android", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsCheques.UIForm.iOS", "..\DsCheques.UIForm\DsCheques.UIForm.iOS\DsCheques.UIForm.iOS.csproj", "{9C2C8E56-188B-43B1-9A02-B24E31B26F24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DsCheques.UIForm", "..\DsCheques.UIForm\DsCheques.UIForm\DsCheques.UIForm.csproj", "{FA1701E0-4BF7-42EB-BEDE-7FC1F44AA977}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DsCheques.UIForm", "..\DsCheques.UIForm\DsCheques.UIForm\DsCheques.UIForm.csproj", "{FA1701E0-4BF7-42EB-BEDE-7FC1F44AA977}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
