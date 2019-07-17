@@ -14,7 +14,7 @@
             <ListView
                 HasUnevenRows="True"
                 ItemsSource="{Binding Cheques}">
-                <!--<ListView.ItemTemplate>
+                <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
@@ -24,7 +24,7 @@
                                 </Grid.ColumnDefinitions>
                                 <Image
                                 	Grid.Column="0"
-                                	Source="{Binding imageFullPath}"
+                                	Source="{Binding ImageFullPath}"
                                 	WidthRequest="100">
                                 </Image>
                                 <StackLayout
@@ -33,11 +33,11 @@
                                     <Label
                                     	FontAttributes="Bold"
                                     	FontSize="Medium"
-                                    	Text="{Binding firmante}"
+                                    	Text="{Binding Firmante}"
                                     	TextColor="Black">
                                     </Label>
                                     <Label
-                                    	Text="{Binding importe, StringFormat='{0:C2}'}"
+                                    	Text="{Binding Importe, StringFormat='{0:C2}'}"
                                     	TextColor="Navy">
                                     </Label>
                                    
@@ -45,7 +45,7 @@
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
-                </ListView.ItemTemplate>-->
+                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
