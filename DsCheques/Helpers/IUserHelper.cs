@@ -1,4 +1,5 @@
 ﻿using DsCheques.Data.Entities;
+using DsCheques.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace DsCheques.Helpers
     {
         Task<User> GetUserByEmailAsync(string email);
         Task<IdentityResult> AddUserAsync(User user, string password);
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+        Task LogoutAsync();
 
     }
 }
