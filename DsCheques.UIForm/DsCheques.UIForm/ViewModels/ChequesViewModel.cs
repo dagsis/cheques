@@ -12,15 +12,23 @@ namespace DsCheques.UIForm.ViewModels
     {
         private ApiService apiService;
         private ObservableCollection<Cheque> cheques;
+        private bool isRefreshing;
         public ObservableCollection<Cheque> Cheques
         {
             get { return this.cheques; }
             set { this.SetValue(ref this.cheques, value); }
         }
 
+        public bool IsRefreshing
+        {
+            get { return this.isRefreshing; }
+            set { this.SetValue(ref this.isRefreshing, value); }
+        }
+
         public ChequesViewModel()
         {
             this.apiService = new ApiService();
+            this.IsRefreshing = true;
             this.LoadCheques();
         }
 
@@ -30,11 +38,14 @@ namespace DsCheques.UIForm.ViewModels
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                this.IsRefreshing = false;
                 return;
             }
 
+
             var cheques = (List<Cheque>)response.Result;
             this.Cheques = new ObservableCollection<Cheque>(cheques);
+            this.IsRefreshing = false;
 
         }
     }

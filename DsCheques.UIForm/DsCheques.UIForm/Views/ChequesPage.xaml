@@ -12,6 +12,7 @@
             BindingContext="{Binding Cheques}"
             Padding="8">
             <ListView
+                IsRefreshing="{Binding IsRefreshing}"
                 HasUnevenRows="True"
                 ItemsSource="{Binding Cheques}">
                 <ListView.ItemTemplate>
@@ -40,7 +41,14 @@
                                     	Text="{Binding Importe, StringFormat='{0:C2}'}"
                                     	TextColor="Navy">
                                     </Label>
-                                   
+                                    <Label
+                                    	Text="{Binding Destino}"
+                                    	TextColor="Navy">
+                                    </Label>
+                                    <Label
+                                    	Text="{Binding Cliente.Name}"
+                                    	TextColor="Navy">
+                                    </Label>
                                 </StackLayout>
                             </Grid>
                         </ViewCell>
