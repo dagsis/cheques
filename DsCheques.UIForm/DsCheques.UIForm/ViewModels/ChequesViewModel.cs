@@ -33,8 +33,8 @@ namespace DsCheques.UIForm.ViewModels
                 return;
             }
 
-            var myCheques = (List<Cheque>)response.Result;
-            this.Cheques = new ObservableCollection<Cheque>(myCheques);
+            var cheques = (List<Cheque>)response.Result;
+            this.Cheques = new ObservableCollection<Cheque>(cheques);
 
         }
     }

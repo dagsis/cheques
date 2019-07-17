@@ -8,19 +8,19 @@ namespace DsCheques.Common.Models
    public class Cheque
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("fechaIngreso")]
-        public DateTimeOffset FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
         [JsonProperty("fechaDeposito")]
-        public DateTimeOffset FechaDeposito { get; set; }
+        public DateTime FechaDeposito { get; set; }
 
         [JsonProperty("firmante")]
         public string Firmante { get; set; }
 
         [JsonProperty("clienteId")]
-        public long ClienteId { get; set; }
+        public int ClienteId { get; set; }
 
         [JsonProperty("destino")]
         public string Destino { get; set; }
@@ -32,7 +32,7 @@ namespace DsCheques.Common.Models
         public string Cuenta { get; set; }
 
         [JsonProperty("importe")]
-        public long Importe { get; set; }
+        public decimal Importe { get; set; }
 
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
@@ -44,6 +44,11 @@ namespace DsCheques.Common.Models
         public Cliente Cliente { get; set; }
 
         [JsonProperty("imageFullPath")]
-        public object ImageFullPath { get; set; }
+        public Uri ImageFullPath { get; set; }
+
+        public override string ToString()
+        {
+            return $"{this.Firmante} {this.Importe:C2}";
+        }
     }
 }
