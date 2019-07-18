@@ -11,10 +11,11 @@ using DsCheques.Data.Repositories.Interfaces;
 using DsCheques.Helpers;
 using DsCheques.Models;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DsCheques.Controllers
 {
-
+    [Authorize]
     public class ChequesController : Controller
     {
 

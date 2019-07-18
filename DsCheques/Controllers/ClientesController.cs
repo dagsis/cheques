@@ -9,9 +9,11 @@ using DsCheques.Data;
 using DsCheques.Data.Entities;
 using DsCheques.Helpers;
 using DsCheques.Data.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DsCheques.Controllers
 {
+    [Authorize]
     public class ClientesController : Controller
     {
         private readonly IClienteRepository clienteRepository;
