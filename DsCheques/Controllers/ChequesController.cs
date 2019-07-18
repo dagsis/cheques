@@ -45,7 +45,7 @@ namespace DsCheques.Controllers
             var cheque =  this.chequesRepository.GetChequesWihClientes(id.Value);
             if (cheque == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ChequeNotFound");
             }
 
             return View(cheque);
@@ -128,13 +128,13 @@ namespace DsCheques.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ChequeNotFound");
             }
 
             var cheque = await this.chequesRepository.GetByIdAsync(id.Value);
             if (cheque == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ChequeNotFound");
             }
 
             var view = this.ToChequeViewModel(cheque);
@@ -199,7 +199,7 @@ namespace DsCheques.Controllers
                 {
                     if (!await this.chequesRepository.ExistAsync(view.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("ChequeNotFound");
                     }
                     else
                     {
@@ -216,14 +216,14 @@ namespace DsCheques.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ChequeNotFound");
             }
 
             var cheque = await this.chequesRepository.GetByIdAsync(id.Value);
 
             if (cheque == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ChequeNotFound");
             }
 
             return View(cheque);
@@ -237,6 +237,11 @@ namespace DsCheques.Controllers
             var cheque = await this.chequesRepository.GetByIdAsync(id);
             await this.chequesRepository.DeleteAsync(cheque);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ChequeNotFound()
+        {
+            return this.View();
         }
 
     }

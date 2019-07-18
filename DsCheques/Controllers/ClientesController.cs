@@ -36,13 +36,13 @@ namespace DsCheques.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             return View(cliente);
@@ -76,13 +76,13 @@ namespace DsCheques.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
             return View(cliente);
         }
@@ -96,7 +96,7 @@ namespace DsCheques.Controllers
         {
             if (id != cliente.Id)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             if (ModelState.IsValid)
@@ -110,14 +110,14 @@ namespace DsCheques.Controllers
                 {
                     if (!await this.clienteRepository.ExistAsync(cliente.Id))
                     {
-                        return NotFound();
+                        return new NotFoundViewResult("ClienteNotFound");
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return new NotFoundViewResult("ClienteNotFound");
             }
             return View(cliente);
         }
@@ -127,13 +127,13 @@ namespace DsCheques.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             var cliente = await this.clienteRepository.GetByIdAsync(id.Value);
             if (cliente == null)
             {
-                return NotFound();
+                return new NotFoundViewResult("ClienteNotFound");
             }
 
             return View(cliente);
@@ -147,6 +147,11 @@ namespace DsCheques.Controllers
              var cliente = await this.clienteRepository.GetByIdAsync(id);
             await this.clienteRepository.DeleteAsync(cliente);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ClienteNotFound()
+        {
+            return this.View();
         }
 
     }

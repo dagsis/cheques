@@ -22,6 +22,9 @@ namespace DsCheques.Data
 
         public async Task SeedAsync()
         {
+            await this.userHelper.CheckRoleAsync("Admin");
+            await this.userHelper.CheckRoleAsync("Customer");
+
             var user = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
             if (user == null)
             {
@@ -38,7 +41,16 @@ namespace DsCheques.Data
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+
             }
+
+            var isInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
+            if (!isInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
+
 
         }
 

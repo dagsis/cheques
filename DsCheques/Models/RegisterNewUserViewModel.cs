@@ -18,13 +18,16 @@ namespace DsCheques.Models
 
         [Required]
         [DataType(DataType.EmailAddress)]
+        [Display(Name = "Usuario")]
         public string Username { get; set; }
 
         [Required]
+        [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
         [Required]
         [Compare("Password")]
+        [Display(Name = "Confirma Contraseña")]
         public string Confirm { get; set; }
 
     }
