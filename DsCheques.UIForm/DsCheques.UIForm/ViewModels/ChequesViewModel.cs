@@ -3,6 +3,7 @@ using DsCheques.Common.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -52,7 +53,7 @@ namespace DsCheques.UIForm.ViewModels
             }
 
             var cheques = (List<Cheque>)response.Result;
-            this.Cheques = new ObservableCollection<Cheque>(cheques);
+            this.Cheques = new ObservableCollection<Cheque>(cheques.OrderByDescending(i =>i.Id));
 
         }
     }

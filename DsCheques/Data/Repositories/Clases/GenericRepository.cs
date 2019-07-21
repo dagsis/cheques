@@ -57,7 +57,16 @@ namespace DsCheques.Data.Repositories.Clases
 
         public async Task<bool> SaveAllAsync()
         {
-            return await this.context.SaveChangesAsync() > 0;
+            try
+            {
+                return await this.context.SaveChangesAsync() > 0;
+            }
+            catch (Exception E)
+            {
+
+                throw E;
+            }
+          
         }
     }
 }

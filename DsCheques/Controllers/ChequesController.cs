@@ -31,7 +31,7 @@ namespace DsCheques.Controllers
         // GET: Cheques
         public IActionResult Index()
         {
-            return View(this.chequesRepository.GetAll().OrderBy(f => f.FechaDeposito).Where(u => u.User.UserName == User.Identity.Name).Include(c => c.Cliente));
+            return View(this.chequesRepository.GetAll().Where(u => u.User.UserName == User.Identity.Name).Include(c => c.Cliente).OrderByDescending(f => f.Id));
         }
 
         // GET: Cheques/Details/5

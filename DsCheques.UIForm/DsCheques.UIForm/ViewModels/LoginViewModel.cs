@@ -88,6 +88,9 @@ namespace DsCheques.UIForm.ViewModels
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.Cheques = new ChequesViewModel();
+            mainViewModel.UserEmail = this.Email;
+            mainViewModel.UserPassword = this.Password;
+
             Application.Current.MainPage = new MasterPage();
 
 
