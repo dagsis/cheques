@@ -94,7 +94,7 @@ namespace DsCheques.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Cuit")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, Cliente cliente)
         {
             if (id != cliente.Id)
             {
@@ -119,7 +119,6 @@ namespace DsCheques.Controllers
                         throw;
                     }
                 }
-                return new NotFoundViewResult("ClienteNotFound");
             }
             return View(cliente);
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DsCheques.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,7 +10,7 @@ namespace DsCheques.UIForm.ViewModels
         private static MainViewModel instance;
         public LoginViewModel Login { get; set; }
         public ChequesViewModel Cheques { get; set; }
-
+        public TokenResponse Token { get; set; }
 
         public MainViewModel()
         {

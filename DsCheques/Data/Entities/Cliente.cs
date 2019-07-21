@@ -16,9 +16,8 @@ namespace DsCheques.Data.Entities
         [Column(TypeName = "varchar(50)")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Campo Requerido")]
-        [Display(Name = "Cuit")]
-        [Column(TypeName = "varchar(11)")]
+        [Display(Name = "Observación")]
+        [Column(TypeName = "varchar(50)")]
         public string Cuit { get; set; }
         public User User { get; set; }
 

@@ -20,7 +20,10 @@ namespace DsCheques.Helpers
         Task CheckRoleAsync(string roleName);
         Task AddUserToRoleAsync(User user, string roleName);
         Task<bool> IsUserInRoleAsync(User user, string roleName);
-
+        Task<User> GetUserByIdAsync(string userId);
+        Task<List<User>> GetAllUsersAsync();
+        Task RemoveUserFromRoleAsync(User user, string roleName);
+        Task DeleteUserAsync(User user);
 
     }
 }

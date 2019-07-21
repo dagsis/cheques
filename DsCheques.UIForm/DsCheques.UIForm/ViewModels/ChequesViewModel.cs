@@ -34,18 +34,25 @@ namespace DsCheques.UIForm.ViewModels
 
         private async void LoadCheques()
         {
-            var response = await this.apiService.GetListAsync<Cheque>("http://www.dscheques.ferozo.net", "/api", "/Cheques");
+            this.IsRefreshing = true;
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var response = await this.apiService.GetListAsync<Cheque>(
+                url,
+                "/api",
+                "/Cheques",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
+
+            this.IsRefreshing = false;
+
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-                this.IsRefreshing = false;
                 return;
             }
 
-
             var cheques = (List<Cheque>)response.Result;
             this.Cheques = new ObservableCollection<Cheque>(cheques);
-            this.IsRefreshing = false;
 
         }
     }

@@ -1,6 +1,7 @@
 ﻿using DsCheques.Data.Entities;
 using DsCheques.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,30 @@ namespace DsCheques.Helpers
         {
             return await this.userManager.IsInRoleAsync(user, roleName);
         }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await this.userManager.FindByIdAsync(userId);
+        }
+
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await this.userManager.Users
+                .OrderBy(u => u.FirstName)
+                .ThenBy(u => u.LastName)
+                .ToListAsync();
+        }
+
+        public async Task RemoveUserFromRoleAsync(User user, string roleName)
+        {
+            await this.userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            await this.userManager.DeleteAsync(user);
+        }
+
 
     }
 }
