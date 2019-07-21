@@ -28,7 +28,8 @@ namespace DsCheques.Controllers
         // GET: Clientes
         public IActionResult Index()
         {
-            return View(this.clienteRepository.GetAll());
+            //return View(this.clienteRepository.GetClienteAsync(User.Identity.Name));
+            return View(this.clienteRepository.GetAll().Where(u =>u.User.UserName == User.Identity.Name));
         }
 
         // GET: Clientes/Details/5
@@ -64,7 +65,8 @@ namespace DsCheques.Controllers
             //TODO: agregar usuario al cliente y tambien en el edit
             if (ModelState.IsValid)
             {
-                cliente.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+                cliente.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+
                 await this.clienteRepository.CreateAsync(cliente);
                 return RedirectToAction(nameof(Index));
             }
@@ -103,7 +105,7 @@ namespace DsCheques.Controllers
             {
                 try
                 {
-                    cliente.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+                    cliente.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     await this.clienteRepository.UpdateAsync(cliente);
                 }
                 catch (DbUpdateConcurrencyException)

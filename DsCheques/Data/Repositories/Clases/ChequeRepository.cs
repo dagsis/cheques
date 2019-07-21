@@ -1,5 +1,6 @@
 ﻿using DsCheques.Data.Entities;
 using DsCheques.Data.Repositories.Interfaces;
+using DsCheques.Helpers;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,14 +13,26 @@ namespace DsCheques.Data.Repositories.Clases
     public class ChequeRepository : GenericRepository<Cheque>, IChequeRepository
     {
         private readonly DataContext context;
-        public ChequeRepository(DataContext context) : base(context)
+        private readonly IUserHelper userHelper;
+
+        public ChequeRepository(DataContext context, IUserHelper userHelper) : base(context)
         {
             this.context = context;
+            this.userHelper = userHelper;
         }
 
         public IQueryable GetAllChequesByOrder()
         {
             return this.context.Cheques.Include(c => c.Cliente).Include(u => u.User).AsNoTracking();
+        }
+
+        public async Task<IQueryable<Cheque>> GetChequeAsync(string userName)
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(userName);
+           
+            return this.context.Cheques
+                .Where(o => o.User == user)
+                .OrderByDescending(o => o.FechaDeposito);
         }
 
         public Cheque GetChequesWihClientes(int id)
@@ -47,3 +60,4 @@ namespace DsCheques.Data.Repositories.Clases
         }
     }
 }
+

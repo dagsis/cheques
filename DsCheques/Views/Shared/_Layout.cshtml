@@ -37,11 +37,16 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
-                    <li><a asp-area="" asp-controller="Cheques" asp-action="Index">Cheques</a></li>
-                    <li><a asp-area="" asp-controller="Account" asp-action="Register">Crear Usuario</a></li>
-
-                </ul>
+                    @if (this.User.IsInRole("Customer") ||  this.User.IsInRole("Admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Clientes" asp-action="Index">Clientes</a></li>
+                        <li><a asp-area="" asp-controller="Cheques" asp-action="Index">Cheques</a></li>
+                    }
+                    @if (this.User.IsInRole("Admin"))
+                    {
+                        <li><a asp-area="" asp-controller="Account" asp-action="Register">Crear Usuario</a></li>
+                    }
+                    </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
                     {
@@ -91,6 +96,8 @@
         <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
         <script src="~/lib/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
     </environment>
 
     @RenderSection("Scripts", required: false)

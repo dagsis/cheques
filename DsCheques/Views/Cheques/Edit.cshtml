@@ -7,99 +7,115 @@
 <h2>Editar Cheque</h2>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
+<div class="container-fluid infoproducto">
 
-            <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="ImageUrl" />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <form asp-action="Edit" enctype="multipart/form-data">
 
-            <div class="form-group">
-                <label asp-for="FechaIngreso" class="control-label"></label>
-                <div class="input-group date datepicker" data-provide="datepicker">
-                    <input asp-for="FechaIngreso" type="text" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <span asp-validation-for="FechaIngreso" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaDeposito" class="control-label"></label>
-                <div class="input-group date datepicker" data-provide="datepicker">
-                    <input asp-for="FechaDeposito" type="text" class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-                </div>
-                <span asp-validation-for="FechaDeposito" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Firmante" class="control-label"></label>
-                <input asp-for="Firmante" class="form-control" />
-                <span asp-validation-for="Firmante" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cliente.Name" class="control-label"></label>
-                <select asp-for="ClienteId" asp-items="Model.Clientes" class="form-control"></select>
-                <span asp-validation-for="ClienteId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Destino" class="control-label"></label>
-                <input asp-for="Destino" class="form-control" />
-                <span asp-validation-for="Destino" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cuenta" class="control-label"></label>
-                <input asp-for="Cuenta" class="form-control" />
-                <span asp-validation-for="Cuenta" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Importe" class="control-label"></label>
-                <input asp-for="Importe" class="form-control" />
-                <span asp-validation-for="Importe" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" class="form-control" type="file" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar</button>
-                <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i> Regresar a la lista</a>
-            </div>
-        </form>
-    </div>
-    <div class="col-md-6 text-center">
+                    <div class="form-group">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" readonly class="form-control" />
+                    </div>
 
-        <div class="form-group">
-            @if (!string.IsNullOrEmpty(Model.ImageUrl))
-            {
-                <img src="@Url.Content(Model.ImageUrl)" alt="Image" style="width:200px;height:300px;max-width: 100%; height: auto;" />
-            }
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImageUrl" />
+
+                    <div class="form-group">
+                        <label asp-for="FechaIngreso" class="control-label"></label>
+                        <div class="input-group date datepicker" data-provide="datepicker">
+                            <input asp-for="FechaIngreso" type="text" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="FechaIngreso" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="FechaDeposito" class="control-label"></label>
+                        <div class="input-group date datepicker" data-provide="datepicker">
+                            <input asp-for="FechaDeposito" type="text" class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                        <span asp-validation-for="FechaDeposito" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Firmante" class="control-label"></label>
+                        <input asp-for="Firmante" class="form-control" />
+                        <span asp-validation-for="Firmante" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cliente.Name" class="control-label"></label>
+                        <select asp-for="ClienteId" asp-items="Model.Clientes" class="form-control"></select>
+                        <span asp-validation-for="ClienteId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Destino" class="control-label"></label>
+                        <input asp-for="Destino" class="form-control" />
+                        <span asp-validation-for="Destino" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Numero" class="control-label"></label>
+                        <input asp-for="Numero" class="form-control" />
+                        <span asp-validation-for="Numero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Importe" class="control-label"></label>
+                        <input asp-for="Importe" class="form-control" />
+                        <span asp-validation-for="Importe" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ImageFile" class="control-label"></label>
+                        <input asp-for="ImageFile" class="form-control" type="file" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Actualizar</button>
+                        <a asp-action="Index" class="btn btn-success"><i class="fa fa-chevron-left"></i> Regresar a la lista</a>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-md-8 col-sm-6 col-xs-12 text-center infoproducto visorImg">
+
+                <figure class="visor">
+                    <div class="form-group">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                        <img src="@Url.Content(Model.ImageUrl)" alt="Image" id="lupa1" class="img-thumbnail" style="width:700px;height:700px;" />
+                           }
+                    </div>
+                </figure>
+
+                @*<figure class="lupa">
+                        <div class="form-group">
+
+
+                            <img src="">
+                        </div>
+                    </figure>*@
+
+            </div>
         </div>
-      
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
-            $(document).ready(function () {
-                $( ".datepicker" ).datepicker({
-                       format: 'dd/mm/yyyy',
-                       todayBtn: "linked",
-                    autoclose: true,
-                    language: "es",
-                    orientation: "bottom auto"
-                });
+        $(document).ready(function () {
+            $(".datepicker").datepicker({
+                format: 'dd/mm/yyyy',
+                todayBtn: "linked",
+                autoclose: true,
+                language: "es",
+                orientation: "bottom auto"
             });
+        });
     </script>
 }
 

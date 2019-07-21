@@ -39,7 +39,6 @@ namespace DsCheques.Data.Entities
         [Display(Name = "Destino")]
         public string Destino { get; set; }
         public string Numero { get; set; }
-        public string Cuenta { get; set; }
 
         [Column(TypeName = "decimal(18,4)")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]

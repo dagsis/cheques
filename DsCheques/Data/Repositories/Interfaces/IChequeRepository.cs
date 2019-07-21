@@ -15,5 +15,8 @@ namespace DsCheques.Data.Repositories.Interfaces
         Cheque GetChequesWihClientes(int id);
 
         IQueryable GetAllChequesByOrder();
+
+        Task<IQueryable<Cheque>> GetChequeAsync(string userName);
+
     }
 }

@@ -94,6 +94,7 @@ namespace DsCheques.Controllers
                         return this.View(model);
                     }
 
+                    await this.userHelper.AddUserToRoleAsync(user, "Customer");
 
                     var loginViewModel = new LoginViewModel
                     {

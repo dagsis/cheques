@@ -31,7 +31,7 @@ namespace DsCheques.Controllers
         // GET: Cheques
         public IActionResult Index()
         {
-            return View(this.chequesRepository.GetAll().OrderBy(f => f.FechaDeposito));
+            return View(this.chequesRepository.GetAll().OrderBy(f => f.FechaDeposito).Where(u => u.User.UserName == User.Identity.Name).Include(c => c.Cliente));
         }
 
         // GET: Cheques/Details/5
@@ -58,6 +58,7 @@ namespace DsCheques.Controllers
             {
                 FechaIngreso = DateTime.Today,
                 FechaDeposito = DateTime.Today,
+                Destino = "En cartera",
                 Clientes = this.chequesRepository.GetComboClientes()
             };
 
@@ -94,7 +95,7 @@ namespace DsCheques.Controllers
 
                 }
 
-                view.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+               view.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
 
                 var cheque = this.toCheques(view, path);
                 await this.chequesRepository.CreateAsync(cheque);
@@ -110,7 +111,6 @@ namespace DsCheques.Controllers
             {
                 Id = view.Id,
                 ImageUrl = path,
-                Cuenta = view.Cuenta,
                 Destino = view.Destino,
                 FechaIngreso = view.FechaIngreso,
                 FechaDeposito = view.FechaDeposito,
@@ -147,7 +147,6 @@ namespace DsCheques.Controllers
             {
                 Id = cheque.Id,
                 ImageUrl = cheque.ImageUrl,
-                Cuenta = cheque.Cuenta,
                 Destino = cheque.Destino,
                 FechaIngreso = cheque.FechaIngreso,
                 FechaDeposito = cheque.FechaDeposito,
@@ -191,7 +190,7 @@ namespace DsCheques.Controllers
                         path = $"~/images/Cheques/{file}";
                     }
 
-                    view.User = await this.userHelper.GetUserByEmailAsync("dagsis@dagsis.com.ar");
+                    view.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                     var cheque = this.toCheques(view, path);
                     await this.chequesRepository.UpdateAsync(cheque);
                 }

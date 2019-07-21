@@ -8,5 +8,7 @@ namespace DsCheques.Data.Repositories.Interfaces
 {
   public interface IClienteRepository : IGenericRepository<Cliente>
     {
+        Task<IQueryable<Cliente>> GetClienteAsync(string userName);
+
     }
 }

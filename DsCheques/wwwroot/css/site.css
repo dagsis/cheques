@@ -35,3 +35,20 @@ body {
         display: none;
     }
 }
+
+
+
+.lupa {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.lupa img {
+    position: relative;
+    margin-top: -100%;
+    margin-left: -50%;
+    width: 160%;
+}

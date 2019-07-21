@@ -22,6 +22,8 @@ namespace DsCheques.Data
 
         public async Task SeedAsync()
         {
+            await this.context.Database.EnsureCreatedAsync();
+
             await this.userHelper.CheckRoleAsync("Admin");
             await this.userHelper.CheckRoleAsync("Customer");
 
