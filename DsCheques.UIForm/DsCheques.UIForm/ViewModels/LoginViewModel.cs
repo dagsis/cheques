@@ -88,7 +88,8 @@ namespace DsCheques.UIForm.ViewModels
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.Cheques = new ChequesViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new ChequesPage());
+            Application.Current.MainPage = new MasterPage();
+
 
         }
     }
