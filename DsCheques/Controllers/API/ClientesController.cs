@@ -24,7 +24,7 @@ namespace DsCheques.Controllers.API
         }
 
         [HttpGet("{userName}")]
-        public IActionResult GetCheques(string userName)
+        public IActionResult GetClientes(string userName)
         {
             var a = this.clienteRepository.GetAll().Where(u => u.User.UserName == userName).OrderBy(c=>c.Name);
             return Ok(a);

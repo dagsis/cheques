@@ -33,27 +33,27 @@
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="0"
-                    	Text="Name"
+                    	Text="Destino"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="0"
-                    	Placeholder="Product name..."
-                    	Text="{Binding Name}">
+                    	Placeholder="Destino..."
+                    	Text="{Binding Destino}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="1"
-                    	Text="Price"
+                    	Text="Importe"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
                     	Grid.Row="1"
                     	Keyboard="Numeric"
-                    	Placeholder="Product price..."
-                    	Text="{Binding Price}">
+                    	Placeholder="Importe cheque..."
+                    	Text="{Binding Importe}">
                     </Entry>
                     <Label
                     	Grid.Column="0"
@@ -90,6 +90,18 @@
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SeletedCliente}">
                     </Picker>
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="5"
+                    	Text="Numero"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                    	Grid.Column="1"
+                    	Grid.Row="5"
+                    	Placeholder="Numero de cheque..."
+                    	Text="{Binding Numero}">
+                    </Entry>
                 </Grid>
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"

@@ -66,8 +66,9 @@ namespace DsCheques.Common.Services
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
 
                 var url = $"{servicePrefix}{controller}";
-                var response = await client.GetAsync(url);
-                var result = await response.Content.ReadAsStringAsync();
+            
+                    var response = await client.GetAsync(url);
+                    var result = await response.Content.ReadAsStringAsync();
 
                 if (!response.IsSuccessStatusCode)
                 {

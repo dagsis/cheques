@@ -3,6 +3,7 @@ using DsCheques.Common.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,28 @@ namespace DsCheques.UIForm.ViewModels
 {
     public class AddChequeViewModel : BaseViewModel
     {
+
+        //private Dictionary<int, string> PickerItems =
+        // new Dictionary<int, string>() { { 1, "Afghanistan" }, { 2, "Albania" } };
+
+        //public List<KeyValuePair<int, string>> PickerItemList
+        //{
+        //    get => PickerItems.ToList();
+        //}
+
+        //private KeyValuePair<string, string> _selectedItem;
+        //public KeyValuePair<string, string> SelectedItem
+        //{
+        //    get => _selectedItem;
+        //    set => _selectedItem = value;
+        //}
+
+        //public List<Cliente> ListClientes
+        //{
+        //    get;
+        //    set;
+        //}
+
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService apiService;
@@ -37,32 +60,22 @@ namespace DsCheques.UIForm.ViewModels
             set => this.SetValue(ref this.isEnabled, value);
         }
 
-        public string Name { get; set; }
+        public string Destino { get; set; }
 
-        public string Price { get; set; }
+        public string Importe { get; set; }
+
+        public string Numero { get; set; }
+
 
         public ICommand SaveCommand => new RelayCommand(this.Save);
 
-        //private Dictionary<int, string> PickerItems =
-        // new Dictionary<int, string>() { { 1, "Afghanistan" }, { 2, "Albania" } };
-
-        //public List<KeyValuePair<int, string>> PickerItemList
-        //{
-        //    get => PickerItems.ToList();
-        //}
-
-        //private KeyValuePair<string, string> _selectedItem;
-        //public KeyValuePair<string, string> SelectedItem
-        //{
-        //    get => _selectedItem;
-        //    set => _selectedItem = value;
-        //}
-
-        public List<Cliente> ListClientes
+        private ObservableCollection<Cliente> listClientes;
+        public ObservableCollection<Cliente> ListClientes
         {
-            get;
-            set;
+            get { return this.listClientes; }
+            set { this.SetValue(ref this.listClientes, value); }
         }
+
 
         private Cliente _selectedCliente;
         public Cliente SeletedCliente
@@ -91,15 +104,16 @@ namespace DsCheques.UIForm.ViewModels
         {
             this.apiService = new ApiService();
 
-            ListClientes = GetClientesAsync().Result;
+             this.GetClientesAsync();
 
             this.ImageSource = "noImage";
             this.IsEnabled = true;
+            this.Destino = "En Cartera";
         }
 
-        private async Task<List<Cliente>> GetClientesAsync(){
+        private async void GetClientesAsync(){
             var url = Application.Current.Resources["UrlAPI"].ToString();
-            var response = await this.apiService.GetListAsync<Cheque>(
+            var response = await this.apiService.GetListAsync<Cliente>(
                 url,
                 "/api",
                 "/Clientes/" + MainViewModel.GetInstance().Login.Email,
@@ -110,11 +124,12 @@ namespace DsCheques.UIForm.ViewModels
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
-                return null;
+                return;
             }
 
-            var clientes =  (List<Cheque>)response.Result;
-            return null;
+            var clientes =  (List<Cliente>)response.Result;
+            this.ListClientes = new ObservableCollection<Cliente>(clientes);
+
         }
 
         private async void Save()
@@ -145,7 +160,10 @@ namespace DsCheques.UIForm.ViewModels
             //TODO: Add image
             var cheque = new Cheque
             {
-                ClienteId = Convert.ToInt32(SeletedCliente.Id),
+                Destino = this.Destino,
+                Importe =Convert.ToDecimal( this.Importe),
+                ClienteId = SeletedCliente.Id,
+                Numero = this.Numero,
                 User = new User { UserName = MainViewModel.GetInstance().UserEmail }
             };
 

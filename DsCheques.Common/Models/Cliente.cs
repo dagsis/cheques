@@ -8,7 +8,7 @@ namespace DsCheques.Common.Models
     public partial class Cliente
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -17,6 +17,6 @@ namespace DsCheques.Common.Models
         public string Cuit { get; set; }
 
         [JsonProperty("user")]
-        public object User { get; set; }
+        public User User { get; set; }
     }
 }
