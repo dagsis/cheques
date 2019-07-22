@@ -30,7 +30,7 @@ namespace DsCheques.Controllers.API
         [HttpGet("{userName}")]
         public IActionResult GetCheques(string userName)
         {
-            var a =  this.chequesRepository.GetAll().Include(c=>c.Cliente).Include(u=>u.User).Where(u => u.User.UserName == userName);
+            var a =  this.chequesRepository.GetAll().Include(c=>c.Cliente).Include(u=>u.User).Where(u => u.User.UserName == userName).OrderByDescending(i=>i.Id);
             return Ok(a);
         }
 

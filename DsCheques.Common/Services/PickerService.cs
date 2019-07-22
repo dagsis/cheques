@@ -9,6 +9,7 @@ namespace DsCheques.Common.Services
     {
         public static List<Cliente> GetClientes()
         {
+
             var clientes = new List<Cliente>()
             {
                 new Cliente() { Id = 1,Name = "Nico"},

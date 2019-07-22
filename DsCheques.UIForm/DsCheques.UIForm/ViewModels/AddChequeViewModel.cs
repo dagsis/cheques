@@ -5,12 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace DsCheques.UIForm.ViewModels
 {
-  public  class AddChequeViewModel : BaseViewModel
+    public class AddChequeViewModel : BaseViewModel
     {
         private bool isRunning;
         private bool isEnabled;
@@ -66,14 +67,14 @@ namespace DsCheques.UIForm.ViewModels
         private Cliente _selectedCliente;
         public Cliente SeletedCliente
         {
-             get { return _selectedCliente;
+            get { return _selectedCliente;
             }
             set
             {
                 this.SetValue(ref this._selectedCliente, value);
-                Idcliente =Convert.ToInt32(_selectedCliente.Id);
+                Idcliente = Convert.ToInt32(_selectedCliente.Id);
             }
-        
+
         }
 
         private int _idCliente;
@@ -83,17 +84,37 @@ namespace DsCheques.UIForm.ViewModels
             {
                 return _idCliente;
             }
-                set => this.SetValue(ref this._idCliente, value);       
+            set => this.SetValue(ref this._idCliente, value);
         }
 
         public AddChequeViewModel()
         {
             this.apiService = new ApiService();
 
-            ListClientes = PickerService.GetClientes();
+            ListClientes = GetClientesAsync().Result;
 
             this.ImageSource = "noImage";
             this.IsEnabled = true;
+        }
+
+        private async Task<List<Cliente>> GetClientesAsync(){
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var response = await this.apiService.GetListAsync<Cheque>(
+                url,
+                "/api",
+                "/Clientes/" + MainViewModel.GetInstance().Login.Email,
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
+
+
+            if (!response.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
+                return null;
+            }
+
+            var clientes =  (List<Cheque>)response.Result;
+            return null;
         }
 
         private async void Save()
