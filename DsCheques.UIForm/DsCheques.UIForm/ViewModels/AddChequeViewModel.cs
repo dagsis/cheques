@@ -60,11 +60,12 @@ namespace DsCheques.UIForm.ViewModels
             set => this.SetValue(ref this.isEnabled, value);
         }
 
+        public string Firmante { get; set; }
         public string Destino { get; set; }
-
         public string Importe { get; set; }
-
         public string Numero { get; set; }
+        public DateTime FIngreso { get; set; }
+        public DateTime FDeposito { get; set; }
 
 
         public ICommand SaveCommand => new RelayCommand(this.Save);
@@ -85,7 +86,7 @@ namespace DsCheques.UIForm.ViewModels
             set
             {
                 this.SetValue(ref this._selectedCliente, value);
-                Idcliente = Convert.ToInt32(_selectedCliente.Id);
+                Idcliente = Convert.ToInt32(_selectedCliente.Id);    
             }
 
         }
@@ -109,6 +110,8 @@ namespace DsCheques.UIForm.ViewModels
             this.ImageSource = "noImage";
             this.IsEnabled = true;
             this.Destino = "En Cartera";
+            this.FIngreso = DateTime.Today;
+            this.FDeposito = DateTime.Today;
         }
 
         private async void GetClientesAsync(){
@@ -135,24 +138,35 @@ namespace DsCheques.UIForm.ViewModels
         private async void Save()
         {
 
-            //if (string.IsNullOrEmpty(this.Name))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", "You must enter a product name.", "Accept");
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(this.Destino))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un destino.", "Aceptar");
+                return;
+            }
 
-            //if (string.IsNullOrEmpty(this.Price))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", "You must enter a product price.", "Accept");
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(this.Firmante))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un firmante.", "Aceptar");
+                return;
+            }
 
-            //var price = decimal.Parse(this.Price);
-            //if (price <= 0)
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", "The price must be a number greather than zero.", "Accept");
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(this.Numero))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un numero de cheque.", "Aceptar");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(this.Importe))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un importe.", "Accept");
+                return;
+            }
+
+            if (this.SeletedCliente == null)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Seleccionar un Cliente", "Accept");
+                return;
+            }
 
             this.IsRunning = true;
             this.IsEnabled = false;
@@ -160,11 +174,14 @@ namespace DsCheques.UIForm.ViewModels
             //TODO: Add image
             var cheque = new Cheque
             {
+                FechaIngreso = this.FIngreso,
+                FechaDeposito = this.FDeposito,
+                Firmante = this.Firmante,
                 Destino = this.Destino,
                 Importe =Convert.ToDecimal( this.Importe),
                 ClienteId = SeletedCliente.Id,
                 Numero = this.Numero,
-                User = new User { UserName = MainViewModel.GetInstance().UserEmail }
+                User = new User { Email = MainViewModel.GetInstance().UserEmail }
             };
 
             var url = Application.Current.Resources["UrlAPI"].ToString();

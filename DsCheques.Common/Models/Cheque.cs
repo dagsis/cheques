@@ -28,9 +28,6 @@ namespace DsCheques.Common.Models
         [JsonProperty("numero")]
         public string Numero { get; set; }
 
-        [JsonProperty("cuenta")]
-        public string Cuenta { get; set; }
-
         [JsonProperty("importe")]
         public decimal Importe { get; set; }
 

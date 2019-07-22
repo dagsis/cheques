@@ -29,79 +29,100 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                   
                     <Label
                     	Grid.Column="0"
                     	Grid.Row="0"
-                    	Text="Destino"
-                    	VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="0"
-                    	Placeholder="Destino..."
-                    	Text="{Binding Destino}">
-                    </Entry>
-                    <Label
-                    	Grid.Column="0"
-                    	Grid.Row="1"
-                    	Text="Importe"
-                    	VerticalOptions="Center">
-                    </Label>
-                    <Entry
-                    	Grid.Column="1"
-                    	Grid.Row="1"
-                    	Keyboard="Numeric"
-                    	Placeholder="Importe cheque..."
-                    	Text="{Binding Importe}">
-                    </Entry>
-                    <Label
-                    	Grid.Column="0"
-                    	Grid.Row="2"
                     	Text="F.Ingreso"
                     	VerticalOptions="Center">
                     </Label>
                     <DatePicker
                         Grid.Column="1"
-                        Grid.Row="2">
+                        Grid.Row="0"
+                        Format="dd/MM/yyyy"
+                        Date="{Binding FIngreso}">
                     </DatePicker>
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="3"
+                    	Grid.Row="1"
                     	Text="F.Deposito"
                     	VerticalOptions="Center">
                     </Label>
                     <DatePicker
                         Grid.Column="1"
-                        Grid.Row="3">
+                        Grid.Row="1"
+                        Format="dd/MM/yyyy"
+                        Date="{Binding FDeposito}">
                     </DatePicker>
+
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="4"
+                    	Grid.Row="2"
+                    	Text="Firmante"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                    	Grid.Column="1"
+                    	Grid.Row="2"
+                    	Placeholder="Firmante..."
+                    	Text="{Binding Firmante}">
+                    </Entry>
+                    
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="3"
                     	Text="Cliente"
                     	VerticalOptions="Center">
                     </Label>
                     <Picker
                         Grid.Column="1"
-                    	Grid.Row="4"
+                    	Grid.Row="3"
                         Title="Seleccione un Cliente"
                         TitleColor="Red"
                         ItemsSource = "{Binding ListClientes}"                        
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SeletedCliente}">
                     </Picker>
+
                     <Label
                     	Grid.Column="0"
-                    	Grid.Row="5"
+                    	Grid.Row="4"
                     	Text="Numero"
                     	VerticalOptions="Center">
                     </Label>
                     <Entry
                     	Grid.Column="1"
-                    	Grid.Row="5"
+                    	Grid.Row="4"
                     	Placeholder="Numero de cheque..."
                     	Text="{Binding Numero}">
                     </Entry>
+
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="5"
+                    	Text="Importe"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                    	Grid.Column="1"
+                    	Grid.Row="5"
+                    	Keyboard="Numeric"
+                    	Placeholder="Importe cheque..."
+                    	Text="{Binding Importe}">
+                    </Entry>
+                    
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="6"
+                    	Text="Destino"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <Entry
+                    	Grid.Column="1"
+                    	Grid.Row="6"
+                    	Placeholder="Destino..."
+                    	Text="{Binding Destino}">
+                    </Entry>
+                    
                 </Grid>
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"
