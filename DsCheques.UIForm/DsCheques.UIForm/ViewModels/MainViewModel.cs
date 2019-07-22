@@ -34,8 +34,6 @@ namespace DsCheques.UIForm.ViewModels
             await App.Navigator.PushAsync(new AddChequePage());
         }
 
-
-
         public MainViewModel()
         {
             instance = this;

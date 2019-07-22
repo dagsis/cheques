@@ -40,9 +40,9 @@ namespace DsCheques.UIForm.ViewModels
             var response = await this.apiService.GetListAsync<Cheque>(
                 url,
                 "/api",
-                "/Cheques",
+                "/Cheques/" + MainViewModel.GetInstance().Login.Email,
                 "bearer",
-                MainViewModel.GetInstance().Token.Token);
+                MainViewModel.GetInstance().Token.Token) ;
 
             this.IsRefreshing = false;
 

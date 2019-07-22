@@ -75,6 +75,21 @@
                         Grid.Column="1"
                         Grid.Row="3">
                     </DatePicker>
+                    <Label
+                    	Grid.Column="0"
+                    	Grid.Row="4"
+                    	Text="Cliente"
+                    	VerticalOptions="Center">
+                    </Label>
+                    <Picker
+                        Grid.Column="1"
+                    	Grid.Row="4"
+                        Title="Seleccione un Cliente"
+                        TitleColor="Red"
+                        ItemsSource = "{Binding ListClientes}"                        
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SeletedCliente}">
+                    </Picker>
                 </Grid>
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"

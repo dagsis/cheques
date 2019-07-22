@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DsCheques.Controllers.API
 {
@@ -26,10 +27,11 @@ namespace DsCheques.Controllers.API
             this.userHerlper = userHerlper;
         }
 
-        [HttpGet]
-        public IActionResult GetCheques()
+        [HttpGet("{userName}")]
+        public IActionResult GetCheques(string userName)
         {
-            return Ok(this.chequesRepository.GetAllChequesByOrder());
+            var a =  this.chequesRepository.GetAll().Include(c=>c.Cliente).Include(u=>u.User).Where(u => u.User.UserName == userName);
+            return Ok(a);
         }
 
         [HttpPost]

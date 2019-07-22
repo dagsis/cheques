@@ -15,6 +15,7 @@ namespace DsCheques.UIForm.ViewModels
     {
         private bool isRunning;
         private bool isEnabled;
+        //private string email;
         private readonly ApiService apiService;
 
         public bool IsRunning
@@ -29,6 +30,8 @@ namespace DsCheques.UIForm.ViewModels
             set => this.SetValue(ref this.isEnabled, value);
 
         }
+
+  
         public string Email { get; set; }
 
         public string Password { get; set; }
