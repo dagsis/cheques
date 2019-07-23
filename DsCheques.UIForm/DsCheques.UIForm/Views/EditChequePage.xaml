@@ -4,7 +4,9 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="DsCheques.UIForm.Views.EditChequePage">
+             x:Class="DsCheques.UIForm.Views.EditChequePage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+         	Title="Editar Cheque">
     <ContentPage.Content>
         <ScrollView
         	BindingContext="{Binding EditCheque}">
@@ -13,9 +15,9 @@
                 <Image
                 	HeightRequest="150"
                 	Source="{Binding Cheque.ImageFullPath}">
-                    <Image.GestureRecognizers>
+                    <!--<Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
-                    </Image.GestureRecognizers>
+                    </Image.GestureRecognizers>-->
                 </Image>
                 <Label
                 	FontSize="Micro"

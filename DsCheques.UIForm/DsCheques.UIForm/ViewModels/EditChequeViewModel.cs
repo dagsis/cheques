@@ -7,7 +7,7 @@ namespace DsCheques.UIForm.ViewModels
 {
     public class EditChequeViewModel : BaseViewModel
     {
-        public Cheque Cheque;
+        public Cheque Cheque { get; set; }
 
         public EditChequeViewModel(Cheque cheque)
         {
