@@ -22,9 +22,13 @@
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SelectChequeCommand}"/>
+                                </Grid.GestureRecognizers>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image
                                 	Grid.Column="0"
@@ -41,6 +45,10 @@
                                     	TextColor="Black">
                                     </Label>
                                     <Label
+                                    	Text="{Binding FechaDeposito,  StringFormat='F.Deposito: \{0:dd/MM/yyyy \}'}"
+                                    	TextColor="Navy">
+                                    </Label>
+                                    <Label
                                     	Text="{Binding Importe, StringFormat='{0:C2}'}"
                                     	TextColor="Navy">
                                     </Label>
@@ -53,6 +61,11 @@
                                     	TextColor="Navy">
                                     </Label>
                                 </StackLayout>
+                                <Image
+    	                           Grid.Column="2"
+    	                           Source="ic_action_chevron_right">       
+                                </Image>    
+
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

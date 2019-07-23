@@ -174,6 +174,7 @@ namespace DsCheques.UIForm.ViewModels
             //TODO: Add image
             var cheque = new Cheque
             {
+                ImageFullPath = "noImage",
                 FechaIngreso = this.FIngreso,
                 FechaDeposito = this.FDeposito,
                 Firmante = this.Firmante,
@@ -200,7 +201,7 @@ namespace DsCheques.UIForm.ViewModels
             }
 
             var newCheque = (Cheque)response.Result;
-            MainViewModel.GetInstance().Cheques.Cheques.Add(newCheque);
+            MainViewModel.GetInstance().Cheques.LoadCheques();
 
             this.IsRunning = false;
             this.IsEnabled = true;

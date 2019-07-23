@@ -12,9 +12,11 @@ namespace DsCheques.UIForm.ViewModels
    public class ChequesViewModel : BaseViewModel
     {
         private ApiService apiService;
-        private ObservableCollection<Cheque> cheques;
+        private ObservableCollection<ChequeItemViewModel> cheques;
+        private List<Cheque> myCheques;
+
         private bool isRefreshing;
-        public ObservableCollection<Cheque> Cheques
+        public ObservableCollection<ChequeItemViewModel> Cheques
         {
             get { return this.cheques; }
             set { this.SetValue(ref this.cheques, value); }
@@ -33,7 +35,7 @@ namespace DsCheques.UIForm.ViewModels
             this.LoadCheques();
         }
 
-        private async void LoadCheques()
+        public async void LoadCheques()
         {
             this.IsRefreshing = true;
             var url = Application.Current.Resources["UrlAPI"].ToString();
@@ -52,9 +54,59 @@ namespace DsCheques.UIForm.ViewModels
                 return;
             }
 
-            var cheques = (List<Cheque>)response.Result;
-            this.Cheques = new ObservableCollection<Cheque>(cheques.OrderByDescending(i =>i.Id));
+            this.myCheques = (List<Cheque>)response.Result;
+            this.RefresChequesList();
 
         }
+        public void AddProductToList(Cheque cheque)
+        {
+            this.myCheques.Add(cheque);
+            this.RefresChequesList();
+        }
+
+        public void UpdateProductInList(Cheque cheque)
+        {
+            var previousCheque = this.myCheques.Where(p => p.Id == cheque.Id).FirstOrDefault();
+            if (previousCheque != null)
+            {
+                this.myCheques.Remove(previousCheque);
+            }
+
+            this.myCheques.Add(cheque);
+            this.RefresChequesList();
+        }
+
+        public void DeleteProductInList(int ChequeId)
+        {
+            var previousProduct = this.myCheques.Where(p => p.Id == ChequeId).FirstOrDefault();
+            if (previousProduct != null)
+            {
+                this.myCheques.Remove(previousProduct);
+            }
+
+            this.RefresChequesList();
+        }
+
+        private void RefresChequesList()
+        {
+            this.Cheques = new ObservableCollection<ChequeItemViewModel>(myCheques.Select(p => new ChequeItemViewModel
+            {
+                Id = p.Id,
+                ClienteId = p.ClienteId,
+                Destino = p.Destino,
+                FechaDeposito = p.FechaDeposito,
+                FechaIngreso = p.FechaIngreso,
+                Firmante = p.Firmante,
+                Importe = p.Importe,
+                Numero = p.Numero,
+                ImageUrl = p.ImageUrl,
+                //Cliente = p.Cliente,
+                ImageFullPath = p.ImageFullPath,
+                User = p.User
+            })
+            .OrderByDescending(p => p.Id)
+            .ToList());
+        }
+
     }
 }

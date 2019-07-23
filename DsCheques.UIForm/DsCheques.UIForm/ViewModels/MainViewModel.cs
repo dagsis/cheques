@@ -16,18 +16,13 @@ namespace DsCheques.UIForm.ViewModels
         public LoginViewModel Login { get; set; }
         public ChequesViewModel Cheques { get; set; }
         public AddChequeViewModel addCheque { get; set; }
-
         public TokenResponse Token { get; set; }
-
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
-
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
-
         public AddChequeViewModel AddCheque { get; set; }
-
+        public EditChequeViewModel EditCheque { get; set; }
         public ICommand AddChequeCommand => new RelayCommand(this.GoAddProduct);
-
         private async void GoAddProduct()
         {
             this.AddCheque = new AddChequeViewModel();
