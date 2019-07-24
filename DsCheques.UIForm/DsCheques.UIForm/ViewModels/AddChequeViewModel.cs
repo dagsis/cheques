@@ -1,6 +1,8 @@
 ﻿using DsCheques.Common.Models;
 using DsCheques.Common.Services;
 using GalaSoft.MvvmLight.Command;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,9 +41,9 @@ namespace DsCheques.UIForm.ViewModels
         private bool isRunning;
         private bool isEnabled;
         private readonly ApiService apiService;
+        private MediaFile file;
 
         private ImageSource imageSource;
-
         public ImageSource ImageSource
         {
             get => this.imageSource;
@@ -69,6 +71,7 @@ namespace DsCheques.UIForm.ViewModels
 
 
         public ICommand SaveCommand => new RelayCommand(this.Save);
+        public ICommand ChangeImageCommand => new RelayCommand(this.ChangeImage);
 
         private ObservableCollection<Cliente> listClientes;
         public ObservableCollection<Cliente> ListClientes
@@ -208,6 +211,51 @@ namespace DsCheques.UIForm.ViewModels
             this.IsEnabled = true;
             await App.Navigator.PopAsync();
         }
+
+        private async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                "De donde Captura la Imagen?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+
+            if (source == "Cancel")
+            {
+                this.file = null;
+                return;
+            }
+
+            if (source == "From Camera")
+            {
+                this.file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        Directory = "Pictures",
+                        Name = "test.jpg",
+                        PhotoSize = PhotoSize.Small,
+                    }
+                );
+            }
+            else
+            {
+                this.file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (this.file != null)
+            {
+                this.ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
+        }
+
+
 
     }
 }
