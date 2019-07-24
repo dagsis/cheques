@@ -100,7 +100,7 @@ namespace DsCheques.UIForm.ViewModels
                 Importe = p.Importe,
                 Numero = p.Numero,
                 ImageUrl = p.ImageUrl,
-                //Cliente = p.Cliente,
+                Cliente = p.Cliente,
                 ImageFullPath = p.ImageFullPath,
                 User = p.User
             })

@@ -182,7 +182,8 @@ namespace DsCheques.UIForm.ViewModels
                 Importe =Convert.ToDecimal( this.Importe),
                 ClienteId = SeletedCliente.Id,
                 Numero = this.Numero,
-                User = new User { Email = MainViewModel.GetInstance().UserEmail }
+                User = new User { Email = MainViewModel.GetInstance().UserEmail },
+                Cliente = new Cliente { Id = SeletedCliente.Id, Name = SeletedCliente.Name, Cuit ="", User = new User { Email = MainViewModel.GetInstance().UserEmail } }
             };
 
             var url = Application.Current.Resources["UrlAPI"].ToString();

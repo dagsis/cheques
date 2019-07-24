@@ -39,7 +39,7 @@
                         Grid.Column="1"
                         Grid.Row="0"
                         Format="dd/MM/yyyy"
-                        Date="{Binding Cheque.FIngreso}">
+                        Date="{Binding Cheque.FechaIngreso}">
                     </DatePicker>
                     <Label
                     	Grid.Column="0"
@@ -51,7 +51,7 @@
                         Grid.Column="1"
                         Grid.Row="1"
                         Format="dd/MM/yyyy"
-                        Date="{Binding Cheque.FDeposito}">
+                        Date="{Binding Cheque.FechaDeposito}">
                     </DatePicker>
 
                     <Label
@@ -76,11 +76,11 @@
                     <Picker
                         Grid.Column="1"
                     	Grid.Row="3"
-                        Title="Seleccione un Cliente"
-                        TitleColor="Red"
+                        Title="{Binding Cheque.Cliente.Name}"
+                        TitleColor="Black"
                         ItemsSource = "{Binding ListClientes}"                        
-                        ItemDisplayBinding="{Binding Cheque.Cliente.Name}"
-                        SelectedItem="{Binding SeletedCliente}">
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding  SeletedCliente,Mode=TwoWay}">
                     </Picker>
 
                     <Label
@@ -107,7 +107,7 @@
                     	Grid.Row="5"
                     	Keyboard="Numeric"
                     	Placeholder="Importe cheque..."
-                    	Text="{Binding Cheque.Importe}">
+                    	Text="{Binding Cheque.Importe, StringFormat='{0:N2}'}">
                     </Entry>
 
                     <Label

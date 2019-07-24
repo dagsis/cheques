@@ -93,6 +93,7 @@ namespace DsCheques.Controllers.API
             oldCheque.Firmante = cheque.Firmante;
             oldCheque.Importe = cheque.Importe;
             oldCheque.Numero = cheque.Numero;
+            oldCheque.Cliente = cheque.Cliente;
 
             var updatedCheque = await this.chequesRepository.UpdateAsync(oldCheque);
             return Ok(updatedCheque);
