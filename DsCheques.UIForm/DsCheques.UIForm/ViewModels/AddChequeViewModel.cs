@@ -183,7 +183,6 @@ namespace DsCheques.UIForm.ViewModels
 
             var cheque = new Cheque
             {
-                ImageFullPath = "noImage",
                 FechaIngreso = this.FIngreso,
                 FechaDeposito = this.FDeposito,
                 Firmante = this.Firmante,

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows.Input;
+using DsCheques.Common.Helpers;
 using DsCheques.Common.Models;
 using DsCheques.Common.Services;
 using GalaSoft.MvvmLight.Command;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Xamarin.Forms;
 
 namespace DsCheques.UIForm.ViewModels
@@ -18,6 +21,14 @@ namespace DsCheques.UIForm.ViewModels
         private bool isEnabled;
         private readonly ApiService apiService;
 
+        private MediaFile file;
+
+        private ImageSource imageSource;
+        public ImageSource ImageSource
+        {
+            get => this.imageSource;
+            set => this.SetValue(ref this.imageSource, value);
+        }
         public Cheque Cheque { get; set; }
 
         private ObservableCollection<Cliente> listClientes;
@@ -69,6 +80,7 @@ namespace DsCheques.UIForm.ViewModels
 
         public ICommand DeleteCommand => new RelayCommand(this.Delete);
 
+        public ICommand ChangeImageCommand => new RelayCommand(this.ChangeImage);
 
         public EditChequeViewModel(Cheque cheque)
         {
@@ -76,6 +88,7 @@ namespace DsCheques.UIForm.ViewModels
 
             this.GetClientesAsync();
             this.Cheque = cheque;
+            this.ImageSource = cheque.ImageFullPath;
             this.IsEnabled = true;
         }
 
@@ -136,6 +149,13 @@ namespace DsCheques.UIForm.ViewModels
             this.IsRunning = true;
             this.IsEnabled = false;
 
+            byte[] imageArray = null;
+            if (this.file != null)
+            {
+                imageArray = FilesHelper.ReadFully(this.file.GetStream());
+                this.Cheque.ImageArray = imageArray;
+            }
+
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.PutAsync(
                 url,
@@ -148,6 +168,8 @@ namespace DsCheques.UIForm.ViewModels
 
             this.IsRunning = false;
             this.IsEnabled = true;
+
+          
 
             if (!response.IsSuccess)
             {
@@ -191,6 +213,49 @@ namespace DsCheques.UIForm.ViewModels
 
             MainViewModel.GetInstance().Cheques.DeleteProductInList(this.Cheque.Id);
             await App.Navigator.PopAsync();
+        }
+
+        private async void ChangeImage()
+        {
+            await CrossMedia.Current.Initialize();
+
+            var source = await Application.Current.MainPage.DisplayActionSheet(
+                "De donde Captura la Imagen?",
+                "Cancel",
+                null,
+                "From Gallery",
+                "From Camera");
+
+            if (source == "Cancel")
+            {
+                this.file = null;
+                return;
+            }
+
+            if (source == "From Camera")
+            {
+                this.file = await CrossMedia.Current.TakePhotoAsync(
+                    new StoreCameraMediaOptions
+                    {
+                        Directory = "Pictures",
+                        Name = "test.jpg",
+                        PhotoSize = PhotoSize.Small,
+                    }
+                );
+            }
+            else
+            {
+                this.file = await CrossMedia.Current.PickPhotoAsync();
+            }
+
+            if (this.file != null)
+            {
+                this.ImageSource = ImageSource.FromStream(() =>
+                {
+                    var stream = file.GetStream();
+                    return stream;
+                });
+            }
         }
     }
 

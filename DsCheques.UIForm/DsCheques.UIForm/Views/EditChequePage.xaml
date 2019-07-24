@@ -14,10 +14,10 @@
             	Padding="10">
                 <Image
                 	HeightRequest="150"
-                	Source="{Binding Cheque.ImageFullPath}">
-                    <!--<Image.GestureRecognizers>
+                	Source="{Binding ImageSource}">
+                    <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
-                    </Image.GestureRecognizers>-->
+                    </Image.GestureRecognizers>
                 </Image>
                 <Label
                 	FontSize="Micro"

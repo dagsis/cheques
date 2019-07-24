@@ -84,7 +84,7 @@ namespace DsCheques.Controllers.API
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Cheque cheque)
+        public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Common.Models.Cheque cheque)
         {
             if (!ModelState.IsValid)
             {
@@ -102,7 +102,22 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest("Cheque Id don't exists.");
             }
 
-            //TODO: Upload images
+            var imageUrl = cheque.ImageUrl;
+            if (cheque.ImageArray != null && cheque.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(cheque.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Cheques";
+                var fullPath = $"~/images/Cheques/{file}";
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
             oldCheque.ClienteId = cheque.ClienteId;
             oldCheque.FechaDeposito = cheque.FechaDeposito;
             oldCheque.FechaIngreso = cheque.FechaIngreso;
@@ -110,7 +125,7 @@ namespace DsCheques.Controllers.API
             oldCheque.Firmante = cheque.Firmante;
             oldCheque.Importe = cheque.Importe;
             oldCheque.Numero = cheque.Numero;
-            oldCheque.Cliente = cheque.Cliente;
+            oldCheque.ImageUrl = imageUrl;
 
             var updatedCheque = await this.chequesRepository.UpdateAsync(oldCheque);
             return Ok(updatedCheque);
