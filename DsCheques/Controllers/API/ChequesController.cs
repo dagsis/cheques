@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DsCheques.Data.Entities;
@@ -35,7 +36,7 @@ namespace DsCheques.Controllers.API
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Cheque cheque)
+        public async Task<IActionResult> PostProduct([FromBody] Common.Models.Cheque cheque)
         {
             if (!ModelState.IsValid)
             {
@@ -48,7 +49,22 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest("Invalid user");
             }
 
-            //TODO: Upload images
+            var imageUrl = string.Empty;
+            if (cheque.ImageArray != null && cheque.ImageArray.Length > 0)
+            {
+                var stream = new MemoryStream(cheque.ImageArray);
+                var guid = Guid.NewGuid().ToString();
+                var file = $"{guid}.jpg";
+                var folder = "wwwroot\\images\\Cheques";
+                var fullPath = $"~/images/Cheques/{file}";
+                var response = FilesHelper.UploadPhoto(stream, folder, file);
+
+                if (response)
+                {
+                    imageUrl = fullPath;
+                }
+            }
+
             var entityCheque = new Cheque
             {
                 ClienteId = cheque.ClienteId,
@@ -59,7 +75,8 @@ namespace DsCheques.Controllers.API
                 Firmante = cheque.Firmante,
                 Importe = cheque.Importe,
                 Numero = cheque.Numero,
-                User = user
+                User = user,
+                ImageUrl = imageUrl
             };
 
             var newCheque = await this.chequesRepository.CreateAsync(entityCheque);

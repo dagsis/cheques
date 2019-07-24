@@ -1,4 +1,5 @@
-﻿using DsCheques.Common.Models;
+﻿using DsCheques.Common.Helpers;
+using DsCheques.Common.Models;
 using DsCheques.Common.Services;
 using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
@@ -174,7 +175,12 @@ namespace DsCheques.UIForm.ViewModels
             this.IsRunning = true;
             this.IsEnabled = false;
 
-            //TODO: Add image
+            byte[] imageArray = null;
+            if (this.file != null)
+            {
+                imageArray = FilesHelper.ReadFully(this.file.GetStream());
+            }
+
             var cheque = new Cheque
             {
                 ImageFullPath = "noImage",
@@ -186,7 +192,9 @@ namespace DsCheques.UIForm.ViewModels
                 ClienteId = SeletedCliente.Id,
                 Numero = this.Numero,
                 User = new User { Email = MainViewModel.GetInstance().UserEmail },
-                Cliente = new Cliente { Id = SeletedCliente.Id, Name = SeletedCliente.Name, Cuit ="", User = new User { Email = MainViewModel.GetInstance().UserEmail } }
+                Cliente = new Cliente { Id = SeletedCliente.Id, Name = SeletedCliente.Name, Cuit ="", User = new User { Email = MainViewModel.GetInstance().UserEmail } },
+                ImageArray = imageArray
+
             };
 
             var url = Application.Current.Resources["UrlAPI"].ToString();

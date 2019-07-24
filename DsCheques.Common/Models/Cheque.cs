@@ -42,6 +42,8 @@ namespace DsCheques.Common.Models
 
         [JsonProperty("imageFullPath")]
         public string ImageFullPath { get; set; }
+        public byte[] ImageArray { get; set; }
+
 
         public override string ToString()
         {
