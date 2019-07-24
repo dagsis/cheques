@@ -119,7 +119,7 @@ namespace DsCheques.UIForm.ViewModels
             var response = await this.apiService.GetListAsync<Cliente>(
                 url,
                 "/api",
-                "/Clientes/" + MainViewModel.GetInstance().Login.Email,
+                "/Clientes/"  + MainViewModel.GetInstance().UserEmail,
                 "bearer",
                 MainViewModel.GetInstance().Token.Token);
 

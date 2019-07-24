@@ -32,6 +32,19 @@
                 	Placeholder="Ingresar su contraseña..."
                 	Text="{Binding Password}">
                 </Entry>
+                
+                <StackLayout
+	              HorizontalOptions="Center"
+	              Orientation="Horizontal">
+                  <Label
+    	            Text="Recuerda en este Dispositivo"
+    	            VerticalOptions="Center">
+                   </Label>
+                   <Switch
+    	              IsToggled="{Binding IsRemember}">
+                    </Switch>
+                </StackLayout>
+
                 <ActivityIndicator
                 	IsRunning="{Binding IsRunning}"
                     VerticalOptions="CenterAndExpand">
@@ -42,7 +55,7 @@
                 	Command="{Binding LoginCommand}"
                 	HeightRequest="46"
                 	IsEnabled="{Binding IsEnabled}"
-                	Text="Login"
+                	Text="Ingresar"
                 	TextColor="White">
                 </Button>
             </StackLayout>

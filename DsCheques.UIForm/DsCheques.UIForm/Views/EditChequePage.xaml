@@ -137,7 +137,7 @@
                     	HeightRequest="46"
                     	HorizontalOptions="FillAndExpand"
                     	IsEnabled="{Binding IsEnabled}"
-                    	Text="Save"
+                    	Text="Actualizar"
                     	TextColor="White">
                     </Button>
                     <Button
@@ -147,7 +147,7 @@
                     	HeightRequest="46"
                     	HorizontalOptions="FillAndExpand"
                     	IsEnabled="{Binding IsEnabled}"
-                    	Text="Delete"
+                    	Text="Borrar"
                     	TextColor="White">
                     </Button>
                 </StackLayout>

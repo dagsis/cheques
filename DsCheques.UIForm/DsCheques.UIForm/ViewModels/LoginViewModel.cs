@@ -5,16 +5,20 @@ using System.Text;
 namespace DsCheques.UIForm.ViewModels
 {
     using System.Windows.Input;
+    using DsCheques.Common.Helpers;
     using DsCheques.Common.Models;
     using DsCheques.Common.Services;
     using DsCheques.UIForm.Views;
     using GalaSoft.MvvmLight.Command;
+    using Newtonsoft.Json;
     using Xamarin.Forms;
 
     public class LoginViewModel : BaseViewModel
     {
         private bool isRunning;
         private bool isEnabled;
+
+        public bool IsRemember { get; set; }
         //private string email;
         private readonly ApiService apiService;
 
@@ -43,8 +47,10 @@ namespace DsCheques.UIForm.ViewModels
             this.apiService = new ApiService();
             this.IsEnabled = true;
 
-            Email = "dagsis@dagsis.com.ar";
-            Password = "123456";
+            this.IsRemember = false;
+            Email = Settings.UserEmail;
+            //Email = "dagsis@dagsis.com.ar";
+            //Password = "123456";
         }
 
         private async void Login()
@@ -89,10 +95,18 @@ namespace DsCheques.UIForm.ViewModels
 
             var token = (TokenResponse)response.Result;
             var mainViewModel = MainViewModel.GetInstance();
+
             mainViewModel.Token = token;
-            mainViewModel.Cheques = new ChequesViewModel();
             mainViewModel.UserEmail = this.Email;
             mainViewModel.UserPassword = this.Password;
+
+            mainViewModel.Cheques = new ChequesViewModel();
+
+
+            Settings.IsRemember = this.IsRemember;
+            Settings.UserEmail = this.Email;
+            Settings.UserPassword = this.Password;
+            Settings.Token = JsonConvert.SerializeObject(token);
 
             Application.Current.MainPage = new MasterPage();
 

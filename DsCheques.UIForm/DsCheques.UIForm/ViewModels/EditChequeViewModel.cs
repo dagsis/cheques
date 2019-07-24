@@ -85,7 +85,7 @@ namespace DsCheques.UIForm.ViewModels
             var response = await this.apiService.GetListAsync<Cliente>(
                 url,
                 "/api",
-                "/Clientes/" + MainViewModel.GetInstance().Login.Email,
+                "/Clientes/" + MainViewModel.GetInstance().UserEmail,
                 "bearer",
                 MainViewModel.GetInstance().Token.Token);
 
@@ -123,7 +123,7 @@ namespace DsCheques.UIForm.ViewModels
 
             if (string.IsNullOrEmpty(Convert.ToString(this.Cheque.Importe)))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un importe.", "Accept");
+                await Application.Current.MainPage.DisplayAlert("Error", "Debe Ingresar un importe.", "Aceptar");
                 return;
             }
 
@@ -151,7 +151,7 @@ namespace DsCheques.UIForm.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 return;
             }
 
@@ -162,7 +162,7 @@ namespace DsCheques.UIForm.ViewModels
 
         private async void Delete()
         {
-            var confirm = await Application.Current.MainPage.DisplayAlert("Confirm", "Are you sure to delete the product?", "Yes", "No");
+            var confirm = await Application.Current.MainPage.DisplayAlert("Confirmar", "Esta Seguro de eliminar este cheque?", "Si", "No");
             if (!confirm)
             {
                 return;
@@ -185,7 +185,7 @@ namespace DsCheques.UIForm.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Accept");
+                await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 return;
             }
 

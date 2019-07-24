@@ -31,7 +31,6 @@ namespace DsCheques.UIForm.ViewModels
         public ChequesViewModel()
         {
             this.apiService = new ApiService();
-            this.IsRefreshing = true;
             this.LoadCheques();
         }
 
@@ -42,7 +41,7 @@ namespace DsCheques.UIForm.ViewModels
             var response = await this.apiService.GetListAsync<Cheque>(
                 url,
                 "/api",
-                "/Cheques/" + MainViewModel.GetInstance().Login.Email,
+                "/Cheques/" + MainViewModel.GetInstance().UserEmail,
                 "bearer",
                 MainViewModel.GetInstance().Token.Token) ;
 
