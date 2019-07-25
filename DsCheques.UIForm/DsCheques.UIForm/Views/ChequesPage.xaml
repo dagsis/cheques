@@ -15,7 +15,9 @@
             BindingContext="{Binding Cheques}"
             Padding="8">
             <ListView
+                IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsRefreshing}"
+                RefreshCommand="{Binding RefreshCommand}"
                 HasUnevenRows="True"
                 ItemsSource="{Binding Cheques}">
                 <ListView.ItemTemplate>

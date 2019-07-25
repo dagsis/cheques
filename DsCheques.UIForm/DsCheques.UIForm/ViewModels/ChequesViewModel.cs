@@ -1,10 +1,12 @@
 ﻿using DsCheques.Common.Models;
 using DsCheques.Common.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace DsCheques.UIForm.ViewModels
@@ -33,6 +35,9 @@ namespace DsCheques.UIForm.ViewModels
             this.apiService = new ApiService();
             this.LoadCheques();
         }
+
+        public ICommand RefreshCommand => new RelayCommand(this.RefreshVerCommand);
+
 
         public async void LoadCheques()
         {
@@ -106,6 +111,9 @@ namespace DsCheques.UIForm.ViewModels
             .OrderByDescending(p => p.Id)
             .ToList());
         }
-
-    }
+        private  void RefreshVerCommand()
+        {
+            LoadCheques();
+        }
+   }
 }
