@@ -21,11 +21,13 @@ namespace DsCheques.Controllers.API
     {
         private readonly IChequeRepository chequesRepository;
         private readonly IUserHelper userHerlper;
+        private readonly IClienteRepository clienteRepository;
 
-        public ChequesController(IChequeRepository chequesRepository, IUserHelper userHerlper)
+        public ChequesController(IChequeRepository chequesRepository, IUserHelper userHerlper, IClienteRepository clienteRepository)
         {
             this.chequesRepository = chequesRepository;
             this.userHerlper = userHerlper;
+            this.clienteRepository = clienteRepository;
         }
 
         [HttpGet("{userName}")]
@@ -49,6 +51,10 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest("Invalid user");
             }
 
+            var cliente = await this.clienteRepository.GetByIdAsync(cheque.ClienteId);
+
+
+
             var imageUrl = string.Empty;
             if (cheque.ImageArray != null && cheque.ImageArray.Length > 0)
             {
@@ -68,7 +74,7 @@ namespace DsCheques.Controllers.API
             var entityCheque = new Cheque
             {
                 ClienteId = cheque.ClienteId,
-                //Cliente = cheque.Cliente,
+                //Cliente = cliente,
                 FechaDeposito = cheque.FechaDeposito,
                 FechaIngreso = cheque.FechaIngreso,
                 Destino = cheque.Destino,
@@ -102,6 +108,8 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest("Cheque Id don't exists.");
             }
 
+            var cliente = await this.clienteRepository.GetByIdAsync(cheque.ClienteId);
+
             var imageUrl = cheque.ImageUrl;
             if (cheque.ImageArray != null && cheque.ImageArray.Length > 0)
             {
@@ -119,6 +127,7 @@ namespace DsCheques.Controllers.API
             }
 
             oldCheque.ClienteId = cheque.ClienteId;
+            oldCheque.Cliente = cliente ;
             oldCheque.FechaDeposito = cheque.FechaDeposito;
             oldCheque.FechaIngreso = cheque.FechaIngreso;
             oldCheque.Destino = cheque.Destino;

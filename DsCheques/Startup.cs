@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,10 +66,7 @@ namespace DsCheques
                 };
             });
 
-            services.Configure<RequestLocalizationOptions>(options =>
-            {
-                options.DefaultRequestCulture = new RequestCulture("es-MX");
-            });
+       
 
             services.AddDbContext<DataContext>(cfg =>
             {
@@ -116,6 +114,20 @@ namespace DsCheques
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            IList<CultureInfo> sc = new List<CultureInfo>();
+            sc.Add(new CultureInfo("es-MX"));
+
+            var lo = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("es-MX"),
+                SupportedCultures = sc,
+                SupportedUICultures = sc
+            };
+
+            var cp = lo.RequestCultureProviders.OfType<CookieRequestCultureProvider>().First();
+            cp.CookieName = "UserCulture"; // Or whatever name that you like
+            app.UseRequestLocalization(lo);
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

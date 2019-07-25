@@ -12,12 +12,14 @@ using DsCheques.Helpers;
 using DsCheques.Models;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using System.Globalization;
 
 namespace DsCheques.Controllers
 {
     [Authorize]
     public class ChequesController : Controller
     {
+        CultureInfo cultures = new CultureInfo("es-MX");
 
         private readonly IChequeRepository chequesRepository;
         private readonly IUserHelper userHelper;
@@ -72,6 +74,7 @@ namespace DsCheques.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ChequesViewModel view)
         {
+
             if (ModelState.IsValid)
             {
                 var path = string.Empty;
@@ -96,6 +99,8 @@ namespace DsCheques.Controllers
                 }
 
                view.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+               decimal importe = Convert.ToDecimal(view.Importe,cultures);
+               view.Importe = importe;          
 
                 var cheque = this.toCheques(view, path);
                 await this.chequesRepository.CreateAsync(cheque);
@@ -191,6 +196,9 @@ namespace DsCheques.Controllers
                     }
 
                     view.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+                    decimal importe = Convert.ToDecimal(view.Importe, cultures);
+                    view.Importe = importe;
+
                     var cheque = this.toCheques(view, path);
                     await this.chequesRepository.UpdateAsync(cheque);
                 }
