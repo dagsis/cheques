@@ -90,21 +90,9 @@ namespace DsCheques.UIForm.ViewModels
             set
             {
                 this.SetValue(ref this._selectedCliente, value);
-                Idcliente = Convert.ToInt32(_selectedCliente.Id);    
             }
 
         }
-
-        private int _idCliente;
-        public int Idcliente
-        {
-            get
-            {
-                return _idCliente;
-            }
-            set => this.SetValue(ref this._idCliente, value);
-        }
-
         public AddChequeViewModel()
         {
             this.apiService = new ApiService();
@@ -183,6 +171,7 @@ namespace DsCheques.UIForm.ViewModels
 
             var cheque = new Cheque
             {
+               
                 FechaIngreso = this.FIngreso,
                 FechaDeposito = this.FDeposito,
                 Firmante = this.Firmante,

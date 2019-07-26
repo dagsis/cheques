@@ -105,11 +105,11 @@ namespace DsCheques.UIForm.ViewModels
                 Numero = p.Numero,
                 ImageUrl = p.ImageUrl,
                 Cliente = p.Cliente,
-                ImageFullPath = p.ImageFullPath,
+                ImageFullPath = p.ImageFullPath == null ? "noImage": p.ImageFullPath,
                 User = p.User
             })
             .OrderByDescending(p => p.Id)
-            .ToList());
+            .ToList()) ;
         }
         private  void RefreshVerCommand()
         {

@@ -49,20 +49,12 @@ namespace DsCheques.UIForm.ViewModels
             set
             {
                 this.SetValue(ref this._selectedCliente, value);
-                Idcliente = Convert.ToInt32(_selectedCliente.Id);
+                Cheque.ClienteId = Convert.ToInt32(_selectedCliente.Id);
             }
 
         }
 
-        private int _idCliente;
-        public int Idcliente
-        {
-            get
-            {
-                return _idCliente;
-            }
-            set => this.SetValue(ref this._idCliente, value);
-        }
+        private List<Cliente> myClientes;
 
         public bool IsRunning
         {
@@ -109,9 +101,22 @@ namespace DsCheques.UIForm.ViewModels
                 return;
             }
 
-            var clientes = (List<Cliente>)response.Result;
-            this.ListClientes = new ObservableCollection<Cliente>(clientes);
+            this.myClientes = (List<Cliente>)response.Result;
+            this.ListClientes = new ObservableCollection<Cliente>(myClientes);
+            this.SetCliente();
+        }
 
+        private void SetCliente()
+        {
+            foreach (var cliente in this.myClientes)
+            { 
+                if (cliente.Id == Cheque.ClienteId)
+                {
+                    this.SeletedCliente = cliente;
+                    return;
+                }
+              
+            }
         }
 
         private async void Save()

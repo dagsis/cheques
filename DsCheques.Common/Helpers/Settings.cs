@@ -14,6 +14,8 @@ namespace DsCheques.Common.Helpers
         private const string isRemember = "isRemember";
         private static readonly string stringDefault = string.Empty;
         private static readonly bool boolDefault = false;
+        private const string user = "user";
+
 
         private static ISettings AppSettings => CrossSettings.Current;
 
@@ -40,6 +42,13 @@ namespace DsCheques.Common.Helpers
             get => AppSettings.GetValueOrDefault(isRemember, boolDefault);
             set => AppSettings.AddOrUpdateValue(isRemember, value);
         }
+
+        public static string User
+        {
+            get => AppSettings.GetValueOrDefault(user, stringDefault);
+            set => AppSettings.AddOrUpdateValue(user, value);
+        }
+
     }
 
 }

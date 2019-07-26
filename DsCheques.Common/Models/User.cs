@@ -57,6 +57,8 @@ namespace DsCheques.Common.Models
 
         [JsonProperty("accessFailedCount")]
         public long AccessFailedCount { get; set; }
+
+        public string FullName { get { return $"{this.FirstName} {this.LastName}"; } }
     }
 
 }

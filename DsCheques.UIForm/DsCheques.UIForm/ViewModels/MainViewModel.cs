@@ -16,8 +16,10 @@ namespace DsCheques.UIForm.ViewModels
         public LoginViewModel Login { get; set; }
         public ChequesViewModel Cheques { get; set; }
         public AddChequeViewModel addCheque { get; set; }
+        public ProfileViewModel Profile { get; set; }
         public TokenResponse Token { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
+        public User User { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
         public AddChequeViewModel AddCheque { get; set; }
@@ -53,6 +55,12 @@ namespace DsCheques.UIForm.ViewModels
                     Icon = "ic_info",
                     PageName = "AboutPage",
                     Title = "About"
+                },
+                new Menu
+                {
+                    Icon = "ic_person",
+                    PageName = "ProfilePage",
+                    Title = "Modify User"
                 },
 
                 new Menu

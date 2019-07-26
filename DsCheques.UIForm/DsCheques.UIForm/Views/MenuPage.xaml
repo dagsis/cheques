@@ -12,6 +12,13 @@
             	HeightRequest="150"
             	Source="Cheque_Book">
             </Image>
+            <Label
+	            FontSize="Large"
+                FontAttributes="Bold"
+	            Text="{Binding User.FullName, StringFormat='Bienvenido: {0}'}"
+	            TextColor="White">  
+            </Label>
+
             <ListView
                 BackgroundColor="Transparent"
             	ItemsSource="{Binding Menus}"

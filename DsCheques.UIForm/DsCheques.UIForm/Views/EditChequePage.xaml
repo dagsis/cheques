@@ -76,11 +76,11 @@
                     <Picker
                         Grid.Column="1"
                     	Grid.Row="3"
-                        Title="{Binding Cheque.Cliente.Name}"
-                        TitleColor="Black"
+                        Title="Seleccione un Cliente"
+                        TitleColor="Red"
                         ItemsSource = "{Binding ListClientes}"                        
                         ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding  SeletedCliente,Mode=TwoWay}">
+                        SelectedItem="{Binding SeletedCliente}">
                     </Picker>
 
                     <Label
