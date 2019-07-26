@@ -10,16 +10,26 @@ using System.Windows.Input;
 
 namespace DsCheques.UIForm.ViewModels
 {
-  public class MainViewModel
+  public class MainViewModel : BaseViewModel
+
     {
         private static MainViewModel instance;
+        private User user;
+        public User User
+        {
+            get => this.user;
+            set => this.SetValue(ref this.user, value);
+        }
+
         public LoginViewModel Login { get; set; }
         public ChequesViewModel Cheques { get; set; }
         public AddChequeViewModel addCheque { get; set; }
         public ProfileViewModel Profile { get; set; }
+        public ChangePasswordViewModel ChangePassword { get; set; }
+
         public TokenResponse Token { get; set; }
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
         public AddChequeViewModel AddCheque { get; set; }
@@ -54,13 +64,13 @@ namespace DsCheques.UIForm.ViewModels
                 {
                     Icon = "ic_info",
                     PageName = "AboutPage",
-                    Title = "About"
+                    Title = "Acerca de.."
                 },
                 new Menu
                 {
                     Icon = "ic_person",
                     PageName = "ProfilePage",
-                    Title = "Modify User"
+                    Title = "Modificar Usuario"
                 },
 
                 new Menu

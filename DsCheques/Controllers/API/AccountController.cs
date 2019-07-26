@@ -45,7 +45,7 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "Userio no existente."
+                    Message = "Usuario no existente."
                 });
             }
 
@@ -63,10 +63,8 @@ namespace DsCheques.Controllers.API
             var userEntity = await this.userHelper.GetUserByEmailAsync(user.Email);
             if (userEntity == null)
             {
-                return this.BadRequest("User not found.");
+                return this.BadRequest("Usuario no encontrado.");
             }
-
-     
 
             userEntity.FirstName = user.FirstName;
             userEntity.LastName = user.LastName;
@@ -101,7 +99,7 @@ namespace DsCheques.Controllers.API
                 return this.BadRequest(new Response
                 {
                     IsSuccess = false,
-                    Message = "This email is not assigned to any user."
+                    Message = "Email no asignado a un usuario."
                 });
             }
 
@@ -118,7 +116,7 @@ namespace DsCheques.Controllers.API
             return this.Ok(new Response
             {
                 IsSuccess = true,
-                Message = "The password was changed succesfully!"
+                Message = "Contraseña cambiada correctamente!"
             });
         }
     }
