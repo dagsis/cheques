@@ -9037,6 +9037,9 @@ namespace DsCheques.UIForm.Droid
 			// aapt resource value: 0x7f0d0006
 			public const int Theme_MediaRouter_LightControlPanel = 2131558406;
 			
+			// aapt resource value: 0x7f0d0202
+			public const int Theme_Splash = 2131558914;
+			
 			// aapt resource value: 0x7f0d0112
 			public const int ThemeOverlay_AppCompat = 2131558674;
 			
