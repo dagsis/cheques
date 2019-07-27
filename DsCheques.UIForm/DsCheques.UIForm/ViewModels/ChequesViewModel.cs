@@ -39,8 +39,15 @@ namespace DsCheques.UIForm.ViewModels
         public ICommand RefreshCommand => new RelayCommand(this.RefreshVerCommand);
         public ICommand SearchCommand => new RelayCommand(this.RefresChequesList);
 
+        private string filter;
 
-        public string Filter { get; set; }
+        public string Filter {
+            get { return this.filter;}
+            set {
+                this.filter = value;
+                this.RefresChequesList();
+            }
+        }
 
         public async void LoadCheques()
         {
