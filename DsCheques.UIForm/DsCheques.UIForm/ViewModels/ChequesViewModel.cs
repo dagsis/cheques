@@ -33,6 +33,7 @@ namespace DsCheques.UIForm.ViewModels
         public ChequesViewModel()
         {
             this.apiService = new ApiService();
+            this.IsRefreshing = true;
             this.LoadCheques();
         }
 
@@ -51,7 +52,6 @@ namespace DsCheques.UIForm.ViewModels
 
         public async void LoadCheques()
         {
-            this.IsRefreshing = true;
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<Cheque>(
                 url,
@@ -60,7 +60,8 @@ namespace DsCheques.UIForm.ViewModels
                 "bearer",
                 MainViewModel.GetInstance().Token.Token) ;
 
-          
+
+            this.IsRefreshing = false;
 
             if (!response.IsSuccess)
             {
@@ -70,8 +71,8 @@ namespace DsCheques.UIForm.ViewModels
             }
 
             this.myCheques = (List<Cheque>)response.Result;
-            this.RefresChequesList();
             this.IsRefreshing = false;
+            this.RefresChequesList();
         }
         public void AddProductToList(Cheque cheque)
         {
