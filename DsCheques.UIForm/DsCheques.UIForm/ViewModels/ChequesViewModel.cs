@@ -37,7 +37,10 @@ namespace DsCheques.UIForm.ViewModels
         }
 
         public ICommand RefreshCommand => new RelayCommand(this.RefreshVerCommand);
+        public ICommand SearchCommand => new RelayCommand(this.RefresChequesList);
 
+
+        public string Filter { get; set; }
 
         public async void LoadCheques()
         {
@@ -50,17 +53,18 @@ namespace DsCheques.UIForm.ViewModels
                 "bearer",
                 MainViewModel.GetInstance().Token.Token) ;
 
-            this.IsRefreshing = false;
+          
 
             if (!response.IsSuccess)
             {
+                this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert("Error", response.Message, "Aceptar");
                 return;
             }
 
             this.myCheques = (List<Cheque>)response.Result;
             this.RefresChequesList();
-
+            this.IsRefreshing = false;
         }
         public void AddProductToList(Cheque cheque)
         {
@@ -93,23 +97,47 @@ namespace DsCheques.UIForm.ViewModels
 
         private void RefresChequesList()
         {
-            this.Cheques = new ObservableCollection<ChequeItemViewModel>(myCheques.Select(p => new ChequeItemViewModel
+            if (string.IsNullOrEmpty(this.Filter))
             {
-                Id = p.Id,
-                ClienteId = p.ClienteId,
-                Destino = p.Destino,
-                FechaDeposito = p.FechaDeposito,
-                FechaIngreso = p.FechaIngreso,
-                Firmante = p.Firmante,
-                Importe = p.Importe,
-                Numero = p.Numero,
-                ImageUrl = p.ImageUrl,
-                Cliente = p.Cliente,
-                ImageFullPath = p.ImageFullPath == null ? "noImage": p.ImageFullPath,
-                User = p.User
-            })
-            .OrderByDescending(p => p.Id)
-            .ToList()) ;
+                this.Cheques = new ObservableCollection<ChequeItemViewModel>(myCheques.Select(p => new ChequeItemViewModel
+                {
+                    Id = p.Id,
+                    ClienteId = p.ClienteId,
+                    Destino = p.Destino,
+                    FechaDeposito = p.FechaDeposito,
+                    FechaIngreso = p.FechaIngreso,
+                    Firmante = p.Firmante,
+                    Importe = p.Importe,
+                    Numero = p.Numero,
+                    ImageUrl = p.ImageUrl,
+                    Cliente = p.Cliente,
+                    ImageFullPath = p.ImageFullPath == null ? "noImage" : p.ImageFullPath,
+                    User = p.User
+                })
+           .OrderByDescending(p => p.FechaDeposito)
+           .ToList());
+            } else
+            {
+                this.Cheques = new ObservableCollection<ChequeItemViewModel>(myCheques.Select(p => new ChequeItemViewModel
+                {
+                    Id = p.Id,
+                    ClienteId = p.ClienteId,
+                    Destino = p.Destino,
+                    FechaDeposito = p.FechaDeposito,
+                    FechaIngreso = p.FechaIngreso,
+                    Firmante = p.Firmante,
+                    Importe = p.Importe,
+                    Numero = p.Numero,
+                    ImageUrl = p.ImageUrl,
+                    Cliente = p.Cliente,
+                    ImageFullPath = p.ImageFullPath == null ? "noImage" : p.ImageFullPath,
+                    User = p.User
+                })
+                 .OrderByDescending(p => p.FechaDeposito)
+                 .Where(c=>c.Cliente.Name.ToLower().Contains(Filter.ToLower()) || c.Destino.ToLower().Contains(Filter.ToLower()) || c.Numero.Contains(Filter) || c.Firmante.ToLower().Contains(Filter.ToLower()) || c.Id.ToString() == Filter)
+                 .ToList());
+            }
+           
         }
         private  void RefreshVerCommand()
         {

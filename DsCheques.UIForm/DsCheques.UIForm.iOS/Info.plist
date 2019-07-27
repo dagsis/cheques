@@ -20,10 +20,8 @@
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
-    <key>MinimumOSVersion</key>
-    <string>8.0</string>
     <key>CFBundleDisplayName</key>
-    <string>DsCheques.UIForm</string>
+    <string>DsCheques</string>
     <key>CFBundleIdentifier</key>
     <string>com.companyname.DsCheques.UIForm</string>
     <key>CFBundleVersion</key>

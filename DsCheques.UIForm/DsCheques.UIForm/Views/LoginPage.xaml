@@ -25,7 +25,7 @@
                 	Text="{Binding Email}">
                 </Entry>
                 <Label
-                	Text="Password">
+                	Text="Contraseña">
                 </Label>
                 <Entry
                 	IsPassword="True"

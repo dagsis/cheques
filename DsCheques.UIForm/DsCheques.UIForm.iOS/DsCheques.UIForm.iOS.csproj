@@ -195,6 +195,9 @@
     <BundleResource Include="Resources\Cheque_Book.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\splash.png" />
+    <BundleResource Include="Resources\Default768x1024.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default320x480.png" />
   </ItemGroup>
 </Project>
