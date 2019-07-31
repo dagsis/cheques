@@ -42,9 +42,9 @@ namespace DsCheques.Data.Repositories.Clases
                 .FirstOrDefault(e => e.Id == id);
         }
 
-        public IEnumerable<SelectListItem> GetComboClientes()
+        public IEnumerable<SelectListItem> GetComboClientes(string userName)
         {
-            var list = this.context.Clientes.Select(p => new SelectListItem
+            var list = this.context.Clientes.Include(u=>u.User).Where(u =>u.User.Email == userName).Select(p => new SelectListItem
             {
                 Text = p.Name,
                 Value = p.Id.ToString()

@@ -61,7 +61,7 @@ namespace DsCheques.Controllers
                 FechaIngreso = DateTime.Today,
                 FechaDeposito = DateTime.Today,
                 Destino = "En cartera",
-                Clientes = this.chequesRepository.GetComboClientes()
+                Clientes = this.chequesRepository.GetComboClientes(User.Identity.Name)
             };
 
             return View(model);
@@ -156,7 +156,7 @@ namespace DsCheques.Controllers
                 FechaIngreso = cheque.FechaIngreso,
                 FechaDeposito = cheque.FechaDeposito,
                 Firmante = cheque.Firmante,  
-                Clientes =  this.chequesRepository.GetComboClientes(),
+                Clientes =  this.chequesRepository.GetComboClientes(User.Identity.Name),
                 ClienteId = cheque.ClienteId,
                 Importe = cheque.Importe,
                 Numero = cheque.Numero,

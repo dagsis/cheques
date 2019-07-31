@@ -10,7 +10,7 @@ namespace DsCheques.Data.Repositories.Interfaces
 {
    public interface IChequeRepository : IGenericRepository<Cheque>
     {
-        IEnumerable<SelectListItem> GetComboClientes();
+        IEnumerable<SelectListItem> GetComboClientes(string userName);
 
         Cheque GetChequesWihClientes(int id);
 

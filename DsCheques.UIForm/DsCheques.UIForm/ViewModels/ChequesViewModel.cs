@@ -142,7 +142,9 @@ namespace DsCheques.UIForm.ViewModels
                     User = p.User
                 })
                  .OrderByDescending(p => p.FechaDeposito)
-                 .Where(c=>c.Cliente.Name.ToLower().Contains(Filter.ToLower()) || c.Destino.ToLower().Contains(Filter.ToLower()) || c.Numero.Contains(Filter) || c.Firmante.ToLower().Contains(Filter.ToLower()) || c.Id.ToString() == Filter)
+                 .Where(c=>c.Cliente.Name.ToLower().Contains(Filter.ToLower()) || c.Destino.ToLower()
+                 .Contains(Filter.ToLower()) || c.Numero.Contains(Filter) || c.Firmante.ToLower()
+                 .Contains(Filter.ToLower()) || c.Id.ToString() == Filter)
                  .ToList());
             }
            
