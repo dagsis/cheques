@@ -39,6 +39,12 @@ namespace DsCheques.UIForm.ViewModels
 
         public ICommand RefreshCommand => new RelayCommand(this.RefreshVerCommand);
         public ICommand SearchCommand => new RelayCommand(this.RefresChequesList);
+        public ICommand VerImageCommand => new RelayCommand(this.ChangeImage);
+
+        private void ChangeImage()
+        {
+            Application.Current.MainPage.DisplayAlert("Error", "Imagen Elegida", "Aceptar");
+        }
 
         private string filter;
 

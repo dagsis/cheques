@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:DsCheques.UIForm.Helpers"
              mc:Ignorable="d"
              x:Class="DsCheques.UIForm.Views.ChequesPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
@@ -39,9 +40,12 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Image
-                                	Grid.Column="0"
-                                	Source="{Binding ImageFullPath}"
-                                	WidthRequest="100">
+                                	    Grid.Column="0"
+                                	    Source="{Binding ImageFullPath}"
+                                	    WidthRequest="100">
+                                        <Image.GestureRecognizers>
+                                           <TapGestureRecognizer Command="{Binding VerImageCommand}"/>
+                                        </Image.GestureRecognizers>
                                 </Image>
                                 <StackLayout
                                 	Grid.Column="1"

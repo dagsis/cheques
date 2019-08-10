@@ -34,6 +34,7 @@ namespace DsCheques.UIForm.ViewModels
         public string UserPassword { get; set; }
         public AddChequeViewModel AddCheque { get; set; }
         public EditChequeViewModel EditCheque { get; set; }
+        public ChequeImgViewModel MyProperty { get; set; }
         public ICommand AddChequeCommand => new RelayCommand(this.GoAddProduct);
         private async void GoAddProduct()
         {
