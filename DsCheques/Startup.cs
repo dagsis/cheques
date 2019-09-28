@@ -129,6 +129,7 @@ namespace DsCheques
             cp.CookieName = "UserCulture"; // Or whatever name that you like
             app.UseRequestLocalization(lo);
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
