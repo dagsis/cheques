@@ -66,6 +66,7 @@ namespace DsCheques.UIForm.ViewModels
                 "bearer",
                 MainViewModel.GetInstance().Token.Token) ;
 
+            url = "http://www.cheques.dagsis.com.ar";
 
             this.IsRefreshing = false;
 

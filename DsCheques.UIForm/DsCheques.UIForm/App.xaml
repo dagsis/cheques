@@ -12,7 +12,7 @@
             <infra:InstanceLocator x:Key="Locator"/>
 
             <!-- Parameters -->
-            <x:String x:Key="UrlAPI">http://www.dscheques.ferozo.net</x:String>
+            <x:String x:Key="UrlAPI">http://www.cheques.dagsis.com.ar</x:String>
 
         </ResourceDictionary>
 

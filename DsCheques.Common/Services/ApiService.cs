@@ -13,6 +13,8 @@ namespace DsCheques.Common.Services
     {
         public async Task<Response> GetListAsync<T>(string urlBase, string servicePrefix, string controller)
         {
+            urlBase = "http://cheques.dagsis.com.ar";
+
             try
             {
                 var client = new HttpClient
@@ -56,6 +58,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var client = new HttpClient
@@ -151,6 +154,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var request = JsonConvert.SerializeObject(model);
@@ -199,6 +203,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var request = JsonConvert.SerializeObject(model);
@@ -246,6 +251,7 @@ namespace DsCheques.Common.Services
             string tokenType,
             string accessToken)
         {
+
             try
             {
                 var client = new HttpClient
@@ -289,6 +295,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var request = JsonConvert.SerializeObject(new RecoverPasswordRequest { Email = email });
@@ -337,6 +344,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var request = JsonConvert.SerializeObject(model);
@@ -384,6 +392,7 @@ namespace DsCheques.Common.Services
         string tokenType,
         string accessToken)
         {
+
             try
             {
                 var request = JsonConvert.SerializeObject(changePasswordRequest);

@@ -59,7 +59,7 @@ namespace DsCheques.Data.Entities
                     return null;
                 }
 
-                return $"http://www.dscheques.ferozo.net{this.ImageUrl.Substring(1)}";
+                return $"http://www.cheques.dagsis.com.ar{this.ImageUrl.Substring(1)}";
             }
         }
 

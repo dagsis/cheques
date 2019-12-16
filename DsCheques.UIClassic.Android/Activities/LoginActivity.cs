@@ -67,7 +67,7 @@ namespace DsCheques.UIClassic.Android.Activities
             };
 
             var response = await this.apiService.GetTokenAsync(
-                "http://www.dscheques.ferozo.net",
+                "http://www.cheques.dagsis.com.ar",
                 "/Account",
                 "/CreateToken",
                 request);

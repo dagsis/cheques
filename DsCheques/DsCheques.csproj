@@ -5,12 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker.css.map" />
-    <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />
-    <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker3.css.map" />
-    <None Include="wwwroot\lib\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css.map" />
-    <None Include="wwwroot\lib\bootstrap-datepicker\js\bootstrap-datepicker.js" />
-    <None Include="wwwroot\lib\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,10 +19,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DsCheques.Common\DsCheques.Common.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\cheques\" />
   </ItemGroup>
 
 </Project>

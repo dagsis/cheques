@@ -44,7 +44,7 @@ namespace DsCheques.UIClassic.Android.Activities
         private async void LoadProducts()
         {
             var response = await this.apiService.GetListAsync<Cheque>(
-                "http://www.dscheques.ferozo.net",
+                "http://cheques.dagsis.com.ar",
                 "/api",
                 "/Cheques/" + this.email,
                 "bearer",
