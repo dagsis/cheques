@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting; // Cambiado para IWebHostEnvironment
 using Microsoft.IdentityModel.Tokens;
 
 namespace DsCheques
@@ -32,12 +33,8 @@ namespace DsCheques
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-         
-
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
@@ -66,31 +63,21 @@ namespace DsCheques
                 };
             });
 
-       
-
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddTransient<SeedDb>();
-
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IChequeRepository, ChequeRepository>();
-
-
             services.AddScoped<IUserHelper, UserHelper>();
-
-
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -98,12 +85,12 @@ namespace DsCheques
                 options.AccessDeniedPath = "/Account/NotAuthorized";
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            // CORRECCIÓN: Se cambia el AddMvc() viejo por el soporte completo de Controladores con Vistas para .NET 8
+            services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // CORRECCIÓN: Se cambia IHostingEnvironment por IWebHostEnvironment (estándar moderno)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -115,8 +102,7 @@ namespace DsCheques
                 app.UseHsts();
             }
 
-            IList<CultureInfo> sc = new List<CultureInfo>();
-            sc.Add(new CultureInfo("es-MX"));
+            IList<CultureInfo> sc = new List<CultureInfo> { new CultureInfo("es-MX") };
 
             var lo = new RequestLocalizationOptions
             {
@@ -126,20 +112,31 @@ namespace DsCheques
             };
 
             var cp = lo.RequestCultureProviders.OfType<CookieRequestCultureProvider>().First();
-            cp.CookieName = "UserCulture"; // Or whatever name that you like
+            cp.CookieName = "UserCulture";
             app.UseRequestLocalization(lo);
 
             app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
+
+            // CORRECCIÓN: Orden estricto de middlewares para .NET 8
             app.UseStaticFiles();
-            app.UseAuthentication();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            // Solo una vez declarados los sistemas de identidad
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                // Mapea tanto las rutas de Web APIs ([ApiController])
+                endpoints.MapControllers();
+
+                // CORRECCIÓN: La ruta por defecto que le faltaba a tus vistas MVC para no dar 404
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
